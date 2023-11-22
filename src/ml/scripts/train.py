@@ -1,7 +1,8 @@
 import lightning as L
-from ml.utils.constants import LOGGING_DIR
+from ml.models.baseline import BaseLine
 
-model = MyLightningModule()
-datamodule = MyLightningDataModule()
-trainer = L.Trainer(logger = TensorBoardLogger(EXPERIMENTS_DIR))
+from ml.utils.constants import LOGGING_DIR, CFG
+model = BaseLine(CFG['model'])
+datamodule = MyLightningDataModule(CFG['data'])
+trainer = L.Trainer(logger = None)
 trainer.fit(model, data_module=datamodule)

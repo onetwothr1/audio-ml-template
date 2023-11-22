@@ -19,16 +19,16 @@ class MelSpectrogram(nn.Module):
                 sample_rate=sample_rate,
                 n_fft=n_fft,
                 win_length=win_length,
-                hop_length=hop,
+                hop_length=hop_length,
                 pad=pad,
                 f_min=f_min,
                 f_max=f_max,
-                n_mels=n_mels
+                n_mels=n_mel
             ), 
             AT.AmplitudeToDB()
         )
 
-    def forard(self, x):
+    def forward(self, x):
         return self.ms(x)
         
 
