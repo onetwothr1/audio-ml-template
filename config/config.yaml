@@ -1,0 +1,52 @@
+# wandb
+name:
+version:
+
+seed_everything: 42
+
+model:
+  class_path: LitCifar10
+  init_args:
+    net:
+      class_path: Cifar10Resnet18
+      init_args:
+        num_classes: 10
+    loss_module:
+      class_path: CrossEntropyLoss
+
+trainer:
+  accelerator: gpu
+  precision: 16-mixed
+  n_epoch: 20
+  max_epoch: 300
+  plugins:
+    - AsyncCheckpointIO
+
+data:
+  class_path:
+  init_args:
+    root: data
+    batch_size: 128
+    val_split: 0.2
+    transforms:
+      class_path: 
+
+optimizer:
+  class_path: SGD
+  init_args:
+    lr: 0.2
+    momentum: 0.9
+    weight_decay: 0.0001
+
+lr_scheduler:
+  class_path: CosineAnnealingLR
+
+mel_spectrogram:
+  sample_rate: 48000
+  n_fft: 512
+  win_length: 1200
+  hop_length: 480
+  n_mel: 40
+  pad: 50
+  f_min: 25
+  f_max: 7500
