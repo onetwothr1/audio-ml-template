@@ -8,8 +8,9 @@ class LitModule(L.LightningModule):
         self, 
         net: nn.Module, 
         loss_module: nn.Module, 
+        num_classes: int,
         # metric_module: nn.Moudle,
-        ):
+    ) -> None:
         super().__init__()
         self.net = net
         self.loss_module = loss_module
