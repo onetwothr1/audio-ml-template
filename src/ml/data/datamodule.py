@@ -1,34 +1,33 @@
-from sklearn.model_selection import train_test_split, StratifiedShuffleSplit
+# from sklearn.model_selection import train_test_split
 from torch.utils.data import Subset, DataLoader
 import lightning as L
-from lightning.pytorch.utilities.types import TRAIN_DATALOADERS, EVAL_DATALOADERS
+# from lightning.pytorch.utilities.types import TRAIN_DATALOADERS, EVAL_DATALOADERS
 import random
 import math
 import torch.utils.data
 from collections import defaultdict
 
-from dataset import CustomDataset
-from ml.utils.constants import CFG
+from ml.data.dataset import CustomDataset
 
-CFG = CFG['data']
-data_dir = '/home/elicer/project/data/processed/audio-mnist-whole/MS'
 
-class LitDataModule(L.MyLightningDataModule):
+class LitDataModule(L.LightningDataModule):
     def __init__(
         self,
-        root: str,
+        train_data_dir: str,
+        test_data_dir: str,
         batch_size: int,
         val_split: float,
     ) -> None:
         super().__init__()
-        self.root = root
+        self.train_data_dir = train_data_dir
+        self.test_data_dir = test_data_dir
         self.val_split = val_split
         self.batch_size = batch_size
 
     def setup(self, stage: str=None):
-        dataset = CustomDataset(train_data_dir)
-        self.train_dataset, self.test_dataset = stratified_split(dataset, labels, fraction=0.1, random_state=42)
-        self.train_dataset, self.val_dataset = stratified_split(self.train_datasetdataset, labels, fraction=self.val_split, random_state=42)
+        dataset = CustomDataset(self.train_data_dir)
+        self.train_dataset, self.train_labels, self.test_dataset, self.test_labels = stratified_split(dataset, dataset.labels, val_split=0.1, random_state=42)
+        self.train_dataset, self.train_labels, self.val_dataset, self.val_labels = stratified_split(self.train_dataset, self.train_labels, val_split=self.val_split, random_state=42)
 
     # def prepare_data(self):
     #     # dowload data

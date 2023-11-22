@@ -1,7 +1,8 @@
 import torch
 from torch import nn
-import lightning as L
+from torch import optim
 from torchmetrics import F1Score
+import lightning as L
 
 class LitModule(L.LightningModule):
     def __init__(
@@ -9,13 +10,17 @@ class LitModule(L.LightningModule):
         net: nn.Module, 
         loss_module: nn.Module, 
         num_classes: int,
-        # metric_module: nn.Moudle,
+        optim_config: dict,
+        lr_schdlr_config: dict
     ) -> None:
         super().__init__()
         self.net = net
-        self.loss_module = loss_module
-        self.metric_module = F1score(task='multiclass', num_classes=6)
-    
+        if loss_module=='CrossEntropyLoss':
+            self.loss_module = nn.CrossEntropyLoss()
+        self.metric_module = F1Score(task='multiclass', num_classes=num_classes)
+        self.optim_config = optim_config
+        self.lr_schdlr_config = lr_schdlr_config
+
     def forward(self, x):
         return self.net(x)
     
@@ -40,3 +45,15 @@ class LitModule(L.LightningModule):
 
     def test_step(self, batch, batch_idx):
         pass
+
+    def configure_optimizers(self):
+        if self.optim_config['class_path']=='SGD':
+            optimizer = optim.SGD(
+                                params = self.net.parameters(), 
+                                lr = self.optim_config['init_args']['lr'],
+                                momentum = self.optim_config['init_args']['momentum'],
+                                weight_decay = self.optim_config['init_args']['weight_decay'])
+        lr_scheduler = None
+        if self.lr_schdlr_config:
+            return [optimizer], [lr_scheduler]
+        return optimizer
