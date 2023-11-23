@@ -2,5 +2,6 @@ data/processed
 data/raw
 experiments/
 config/wandb_api_key.txt
+
 *.pyc
 __pycache__/
