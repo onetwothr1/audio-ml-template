@@ -18,6 +18,8 @@ class LitDataModule(L.LightningDataModule):
         batch_size: int,
         val_split: float,
         num_workers: int,
+        audio_max_len: int,
+        mel_spectrogram: dict,
         transform: BaseTransforms
     ) -> None:
         super().__init__()
@@ -26,14 +28,22 @@ class LitDataModule(L.LightningDataModule):
         self.val_split = val_split
         self.batch_size = batch_size
         self.num_workers = num_workers
+
+        self.audio_max_len = audio_max_len
+        self.mel_spectrogram = mel_spectrogram
         self.train_transform = transform.train_transform
         self.val_transform = transform.val_transform
         self.test_transform = transform.test_transform
 
     def setup(self, stage: str=None):
-        dataset = AudioDataset(self.train_data_dir)
+        dataset = AudioDataset(
+            data_dir = self.train_data_dir,
+            audio_max_len = self.audio_max_len,
+            mel_spectrogram = self.mel_spectrogram, 
+            transfrom = self.train_data_dir)
+
         self.train_dataset, self.train_labels, self.test_dataset, self.test_labels = \
-            stratified_split(dataset, dataset.labels, val_split=0.1, random_state=42)
+            stratified_split(dataset, dataset.make_labels(), val_split=0.1, random_state=42)
         self.train_dataset, self.train_labels, self.val_dataset, self.val_labels = \
             stratified_split(self.train_dataset, self.train_labels, val_split=self.val_split, random_state=42)
 

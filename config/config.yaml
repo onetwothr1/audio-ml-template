@@ -22,14 +22,6 @@ trainer:
   plugins:
     - AsyncCheckpointIO
 
-data:
-  class_path:
-  init_args:
-    root: data
-    batch_size: 128
-    val_split: 0.2
-    num_worker: 0
-
 optimizer:
   class_path: SGD
   init_args:
@@ -40,19 +32,25 @@ optimizer:
 lr_scheduler:
   class_path: CosineAnnealingLR
 
-mel_spectrogram:
-  sample_rate: 48000
-  n_fft: 2048 # n_fft >= win_length. use value of 2^n for computation speed
-  win_length: 1200 # default 25ms in linguistics field 
-  hop_length: 480 # default 10ms
-  n_mel_filter: 40
-  pad: 50
-  f_min: 25
-  f_max: 7500
-
-  mfcc:
-    something:
-
-transform:
-  padding:
-    fixed_size: 75
+data:
+  class_path:
+  init_args:
+    root: data
+    batch_size: 128
+    val_split: 0.2
+    num_worker: 0
+  dataset:
+    init_args:
+      audio_max_length: 75
+    mel_spectrogram:
+      sample_rate: 16000 # it will resample the audio into this value
+      n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
+      win_length: 400 # default 25ms in linguistics field 
+      hop_length: 160 # default 10ms
+      n_mels: 40
+      pad: 50
+      f_min: 25
+      f_max: 7500
+    mfcc:
+      something:
+    transform:

@@ -5,7 +5,8 @@ from ml.data.datamodule import LitDataModule
 from ml.utils.constants import CFG, EXPERIMENTS_DIR, DATA_DIR
 from ml.transform.default import Transform
 
-transform = Transform(CFG['transform']['padding'])
+# transform = Transform(CFG['transform']['padding'])
+
 model = LitModule(
                 net = BaseLine(), 
                 loss_module = CFG['model']['init_args']['loss_module']['class_path'],
@@ -13,21 +14,26 @@ model = LitModule(
                 optim_config = CFG['optimizer'],
                 lr_schdlr_config = None,
                 )
+
 datamodule = LitDataModule(
                 train_data_dir=DATA_DIR,
                 test_data_dir=None,
-                batch_size=CFG['data']['init_args']['batch_size'],
-                val_split=CFG['data']['init_args']['val_split'],
-                num_workers=CFG['data']['init_args']['num_worker'],
-                transform=transform
+                batch_size = CFG['data']['init_args']['batch_size'],
+                val_split = CFG['data']['init_args']['val_split'],
+                num_workers = CFG['data']['init_args']['num_worker'],
+                audio_max_len = CFG['data']['dataset']['init_args']['audio_max_length'],
+                mel_spectrogram = CFG['data']['init_args']['mel_spectrogram'],
+                transform = transform
                 )
+
 trainer = L.Trainer(
                 logger = None,
-                max_epochs=CFG['trainer']['n_epoch'],
-                accelerator=CFG['trainer']['accelerator'],
-                check_val_every_n_epoch=CFG['trainer']['check_val_every_n_epoch'],
-                default_root_dir=EXPERIMENTS_DIR
+                max_epochs = CFG['trainer']['n_epoch'],
+                accelerator = CFG['trainer']['accelerator'],
+                check_val_every_n_epoch = CFG['trainer']['check_val_every_n_epoch'],
+                default_root_dir = EXPERIMENTS_DIR
                 )
+
 trainer.fit(model, 
             datamodule=datamodule,
             # ckpt_path=

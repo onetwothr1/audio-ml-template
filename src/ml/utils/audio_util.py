@@ -7,7 +7,7 @@ from IPython.display import Audio
 class AudioUtil():
   # https://towardsdatascience.com/audio-deep-learning-made-simple-sound-classification-step-by-step-cebc936bbe5
     
-    
+
   # ----------------------------
   # Load an audio file. Return the signal as a tensor and the sample rate
   # ----------------------------
@@ -103,12 +103,22 @@ class AudioUtil():
   # Generate a Spectrogram
   # ----------------------------
   @staticmethod
-  def spectro_gram(aud, n_mels=64, n_fft=1024, hop_len=None):
+  def mel_spectrogram(aud, n_mels=64, n_fft=1024, hop_len=None):
     sig,sr = aud
     top_db = 80
 
     # spec has shape [channel, n_mels, time], where channel is mono, stereo etc
-    spec = transforms.MelSpectrogram(sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels)(sig)
+    spec = transforms.MelSpectrogram(
+                sample_rate=sr,
+                n_mels=n_mels,
+                n_fft=n_fft,
+                win_length=win_len,
+                hop_length=hop_len,
+                pad=pad,
+                f_min=f_min,
+                f_max=f_max,
+            )(sig)
+
 
     # Convert to decibels
     spec = transforms.AmplitudeToDB(top_db=top_db)(spec)
