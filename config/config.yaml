@@ -1,5 +1,5 @@
 project: audio-mnist
-# name: baseline-1
+# name: 
 
 seed_everything: 42
 
@@ -54,4 +54,13 @@ data:
     pad: 0
   mfcc:
     something:
-  transform:
+
+transform:
+  time_shift: False
+    shift_max: 0.4
+  masking: False
+    max_mask_percent: 0.1
+    n_freq_mask: 1
+    n_time_mask: 1
+  noising: False
+    noise_level: 0.05

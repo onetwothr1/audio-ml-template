@@ -30,7 +30,8 @@ class AudioDataset(Dataset):
         audio = AudioUtil.open(file_path)
         audio = AudioUtil.pad_trunc(audio, self.audio_max_ms)
         # audio = AudioUtil.time_shift(audio, self.shift_pct)
-        spectrogram = AudioUtil.mel_spectrogram(
+    
+        mel_spectro = AudioUtil.mel_spectrogram(
                                     audio, 
                                     n_mels = self.mel_sg['n_mels'], 
                                     n_fft = self.mel_sg['n_fft'], 
@@ -40,9 +41,9 @@ class AudioDataset(Dataset):
                                     f_max = self.mel_sg['f_max'],
                                     pad = self.mel_sg['pad'],
                                     )
-        # aug_sgram = AudioUtil.spectro_augment(sgram, max_mask_pct=0.1, n_freq_masks=2, n_time_masks=2)
 
-        return spectrogram, label
+        mel_spectro_aug = self.transform(mel_spectro)
+        return mel_spectro_aug, label
 
     def __len__(self):
         return len(self.file_list)

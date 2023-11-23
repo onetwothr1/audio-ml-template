@@ -34,7 +34,6 @@ model = LitModule(
                 lr_schduler = CFG['lr_scheduler'],
                 )
 
-# transform = Transform(CFG['transform']['padding'])
 
 datamodule = LitDataModule(
                 train_data_dir=DATA_DIR,
@@ -44,7 +43,9 @@ datamodule = LitDataModule(
                 num_workers = CFG['data']['init_args']['num_worker'],
                 audio_max_ms = CFG['data']['dataset']['init_args']['audio_max_ms'],
                 mel_spectrogram = CFG['data']['mel_spectrogram'],
-                # transform = transform
+                transform = Transform(
+                    
+                )
                 )
 
 
