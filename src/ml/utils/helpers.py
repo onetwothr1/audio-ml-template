@@ -3,6 +3,8 @@ import math
 import torch.utils.data
 from collections import defaultdict
 
+from ml.utils.constants import *
+
 def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split, random_state=42):
     '''
     https://gist.github.com/Alvtron/9b9c2f870df6a54fda24dbd1affdc254
@@ -23,3 +25,8 @@ def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split, rand
     second_set_inputs = torch.utils.data.Subset(dataset, second_set_indices)
     second_set_labels = list(map(labels.__getitem__, second_set_indices))
     return first_set_inputs, first_set_labels, second_set_inputs, second_set_labels
+
+def update_config_yaml(name, new_value):
+    CFG[name] = new_value
+    with open(os.path.join(CONFIG_DIR, 'config.yaml'), 'w') as f:
+        yaml.dump(CFG, f)

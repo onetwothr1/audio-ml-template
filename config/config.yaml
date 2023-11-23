@@ -1,5 +1,5 @@
 project: audio-mnist
-name: baseline-1
+# name: baseline-1
 
 seed_everything: 42
 
@@ -16,7 +16,7 @@ model:
 trainer:
   accelerator: gpu
   precision: 16-mixed
-  n_epoch: 1
+  n_epoch: 8
   check_val_every_n_epoch: 1
   plugins:
     - AsyncCheckpointIO

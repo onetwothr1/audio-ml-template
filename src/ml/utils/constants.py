@@ -8,7 +8,7 @@ DATA_DIR = "/home/elicer/project/data/raw/audio-mnist-whole"
 EXPERIMENTS_DIR = os.path.join(ROOT_DIR, "experiments")
 CONFIG_DIR = os.path.join(ROOT_DIR, "config")
 
-with open(os.path.join(ROOT_DIR, 'config/wandb_api_key.txt'), 'r') as file:
+with open(os.path.join(CONFIG_DIR, 'wandb_api_key.txt'), 'r') as file:
     WANDB_API_KEY = file.readline()
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

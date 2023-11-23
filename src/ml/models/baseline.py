@@ -1,4 +1,3 @@
-import torch
 from torch import nn
 
 class BaseLine(nn.Module):
@@ -29,4 +28,3 @@ class BaseLine(nn.Module):
         x = self.ap(x)
         x = x.view(x.shape[0], -1)
         return self.lin(x)
-

@@ -4,3 +4,4 @@ experiments/
 wandb
 *.pyc
 __pycache__/
+wandb

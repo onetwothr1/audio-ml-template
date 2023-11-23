@@ -1,16 +1,33 @@
-import os
+import os, sys, argparse
 import wandb
 import lightning as L
 from lightning.pytorch.loggers import WandbLogger
 from lightning.pytorch.callbacks import ModelCheckpoint
+from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 
 from ml.models.baseline import BaseLine
 from ml.module.lightning_module import LitModule
 from ml.data.datamodule import LitDataModule
 from ml.utils.constants import CFG, EXPERIMENTS_DIR, DATA_DIR, WANDB_API_KEY
+from ml.utils.helpers import update_config_yaml
 from ml.transform.default import Transform
 
+# ---------------------
+# parsing argument
+# ---------------------
+parser = argparse.ArgumentParser()
+parser.add_argument('-n', '--name', dest='name', default=None, action='store')
+parser.add_argument('-c', '--ckptpath', dest='ckpt_path', default=None, action='store') # to resume training from a checkpoint
+args = parser.parse_args()
+# if args.name:
+#     update_config_yaml('name', args.name)
 
+
+
+
+# ---------------------
+# model
+# ---------------------
 model = LitModule(
                 net = BaseLine(), 
                 loss_module = CFG['model']['init_args']['loss_module']['class_path'],
@@ -33,11 +50,11 @@ datamodule = LitDataModule(
                 )
 
 
-
 wandb.login(key = WANDB_API_KEY)
 wandb_logger = WandbLogger(
                 project = CFG['project'],
-                name = CFG['name'],
+                name = args.name,
+                # name = CFG['name'],
                 config = CFG,
                 )
 
@@ -46,18 +63,24 @@ trainer = L.Trainer(
                 max_epochs = CFG['trainer']['n_epoch'],
                 accelerator = CFG['trainer']['accelerator'],
                 check_val_every_n_epoch = CFG['trainer']['check_val_every_n_epoch'],
-                callbacks = ModelCheckpoint(
-                    save_top_k = 5,
-                    monitor = 'val/loss',
-                    mode = 'min',
-                    dirpath = EXPERIMENTS_DIR + os.sep + CFG['name'],
-                    filename = "{epoch:02d}-{val_loss:.2f}"
-                )
+                callbacks = [
+                    ModelCheckpoint(
+                        save_top_k = 5,
+                        monitor = 'val/loss',
+                        mode = 'min',
+                        dirpath = EXPERIMENTS_DIR + os.sep + CFG['project'] + os.sep + CFG['name'],
+                        filename = "{epoch:02d}-{val_loss:.4f}"
+                        ),
+                    EarlyStopping(
+                        monitor = 'val/loss',
+                        mode = 'min',
+                        min_delta = 1e-4,
+                        patience = 5,
+                        ),
+                ]
                 )
 
 trainer.fit(model, 
-            datamodule=datamodule,
-            # ckpt_path=
+            datamodule = datamodule, 
+            ckpt_path = args.ckpt_path
             )
-
-wandb.finish()
