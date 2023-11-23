@@ -1,6 +1,7 @@
 import random
 import math
 import torch.utils.data
+from collections import defaultdict
 
 def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split, random_state=42):
     '''

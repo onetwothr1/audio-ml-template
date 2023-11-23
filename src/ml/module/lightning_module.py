@@ -42,7 +42,7 @@ class LitModule(L.LightningModule):
         self.log("val/loss", loss.item(), on_epoch=True, on_step=False)
 
         acc = self.metric_module(pred, y)
-        self.log('val/acc', on_epoch=True, on_step=False, prog_bar=True)
+        self.log('val/acc', acc, on_epoch=True, on_step=False, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
         x, y = batch

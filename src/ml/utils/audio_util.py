@@ -103,7 +103,7 @@ class AudioUtil():
   # Generate a Spectrogram
   # ----------------------------
   @staticmethod
-  def mel_spectrogram(aud, n_mels=64, n_fft=1024, hop_len=None):
+  def mel_spectrogram(aud, n_mels, n_fft, win_len, hop_len, f_min, f_max, pad=0):
     sig,sr = aud
     top_db = 80
 
@@ -114,9 +114,9 @@ class AudioUtil():
                 n_fft=n_fft,
                 win_length=win_len,
                 hop_length=hop_len,
-                pad=pad,
                 f_min=f_min,
                 f_max=f_max,
+                pad=pad,
             )(sig)
 
 

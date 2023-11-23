@@ -38,19 +38,19 @@ data:
     root: data
     batch_size: 128
     val_split: 0.2
-    num_worker: 0
+    num_worker: 3
   dataset:
     init_args:
-      audio_max_length: 75
-    mel_spectrogram:
-      sample_rate: 16000 # it will resample the audio into this value
-      n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
-      win_length: 400 # default 25ms in linguistics field 
-      hop_length: 160 # default 10ms
-      n_mels: 40
-      pad: 50
-      f_min: 25
-      f_max: 7500
-    mfcc:
-      something:
-    transform:
+      audio_max_ms: 1000
+  mel_spectrogram:
+    sample_rate: 16000 # it will resample the audio into this value
+    n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
+    win_length: 400 # default 25ms in linguistics field 
+    hop_length: 160 # default 10ms
+    n_mels: 40
+    f_min: 25
+    f_max: 7500
+    pad: 0
+  mfcc:
+    something:
+  transform:

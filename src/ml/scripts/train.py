@@ -21,9 +21,9 @@ datamodule = LitDataModule(
                 batch_size = CFG['data']['init_args']['batch_size'],
                 val_split = CFG['data']['init_args']['val_split'],
                 num_workers = CFG['data']['init_args']['num_worker'],
-                audio_max_len = CFG['data']['dataset']['init_args']['audio_max_length'],
-                mel_spectrogram = CFG['data']['init_args']['mel_spectrogram'],
-                transform = transform
+                audio_max_ms = CFG['data']['dataset']['init_args']['audio_max_ms'],
+                mel_spectrogram = CFG['data']['mel_spectrogram'],
+                # transform = transform
                 )
 
 trainer = L.Trainer(
