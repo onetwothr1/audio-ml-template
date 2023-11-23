@@ -1,11 +1,13 @@
+import wandb
 import lightning as L
+from lightning.loggers import WandbLogger
+
 from ml.models.baseline import BaseLine
 from ml.module.lightning_module import LitModule
 from ml.data.datamodule import LitDataModule
-from ml.utils.constants import CFG, EXPERIMENTS_DIR, DATA_DIR
+from ml.utils.constants import CFG, EXPERIMENTS_DIR, DATA_DIR, WANDB_API_KEY
 from ml.transform.default import Transform
 
-# transform = Transform(CFG['transform']['padding'])
 
 model = LitModule(
                 net = BaseLine(), 
@@ -14,6 +16,8 @@ model = LitModule(
                 optim_config = CFG['optimizer'],
                 lr_schdlr_config = None,
                 )
+
+# transform = Transform(CFG['transform']['padding'])
 
 datamodule = LitDataModule(
                 train_data_dir=DATA_DIR,
@@ -26,15 +30,27 @@ datamodule = LitDataModule(
                 # transform = transform
                 )
 
+
+
+wandb.login(key=api-key)
+wandb_logger = WandbLogger(
+                project = CFG['wandb']['project'],
+                name = CFG['wandb']['name'],
+                config = CFG,
+                config_exclude_keys = ['wandb']
+                )
+
 trainer = L.Trainer(
-                logger = None,
+                logger = wandb_logger,
                 max_epochs = CFG['trainer']['n_epoch'],
                 accelerator = CFG['trainer']['accelerator'],
                 check_val_every_n_epoch = CFG['trainer']['check_val_every_n_epoch'],
-                default_root_dir = EXPERIMENTS_DIR
+                default_root_dir = EXPERIMENTS_DIR,
                 )
 
 trainer.fit(model, 
             datamodule=datamodule,
             # ckpt_path=
             )
+
+wandb.finish()

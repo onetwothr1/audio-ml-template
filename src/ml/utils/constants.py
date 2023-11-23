@@ -4,10 +4,13 @@ import torch
 import yaml
 
 ROOT_DIR = Path(__file__).parent.parent.parent.parent
-# DATA_DIR = os.path.join(ROOT_DIR, "data")
 DATA_DIR = "/home/elicer/project/data/raw/audio-mnist-whole"
 EXPERIMENTS_DIR = os.path.join(ROOT_DIR, "experiments")
 CONFIG_DIR = os.path.join(ROOT_DIR, "config")
+
+with open(os.path.join(ROOT_DIR.parent, 'config/wandb_api_key.txt'), 'r') as file:
+    WANDB_API_KEY = file.readline()[-1]
+
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open(os.path.join(CONFIG_DIR, 'config.yaml')) as f:

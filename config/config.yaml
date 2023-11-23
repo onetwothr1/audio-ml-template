@@ -1,6 +1,6 @@
-# wandb
-name:
-version:
+wandb:
+  project: audio-mnist
+  name: baseline-1
 
 seed_everything: 42
 
