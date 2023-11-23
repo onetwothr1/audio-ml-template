@@ -1,5 +1,6 @@
 data/processed
 data/raw
 experiments/
+wandb
 *.pyc
 __pycache__/
