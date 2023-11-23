@@ -23,8 +23,6 @@ args = parser.parse_args()
 #     update_config_yaml('name', args.name)
 
 
-
-
 # ---------------------
 # model
 # ---------------------
