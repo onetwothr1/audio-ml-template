@@ -2,7 +2,7 @@ import os, sys, argparse
 import wandb
 import lightning as L
 from lightning.pytorch.loggers import WandbLogger
-from lightning.pytorch.callbacks import ModelCheckpoint
+from lightning.pytorch.callbacks import ModelCheckpoint, LearningRateMonitor
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 
 from ml.models.baseline import BaseLine
@@ -32,8 +32,8 @@ model = LitModule(
                 net = BaseLine(), 
                 loss_module = CFG['model']['init_args']['loss_module']['class_path'],
                 num_classes = CFG['model']['init_args']['net']['init_args']['num_classes'],
-                optim_config = CFG['optimizer'],
-                lr_schdlr_config = None,
+                optim = CFG['optimizer'],
+                lr_schduler = CFG['lr_scheduler'],
                 )
 
 # transform = Transform(CFG['transform']['padding'])
@@ -70,13 +70,14 @@ trainer = L.Trainer(
                         mode = 'min',
                         dirpath = EXPERIMENTS_DIR + os.sep + CFG['project'] + os.sep + CFG['name'],
                         filename = "{epoch:02d}-{val_loss:.4f}"
-                        ),
+                    ),
                     EarlyStopping(
                         monitor = 'val/loss',
                         mode = 'min',
                         min_delta = 1e-4,
-                        patience = 5,
-                        ),
+                        patience = 4,
+                    ),
+                    LearningRateMonitor(logging_interval = 'epoch')
                 ]
                 )
 

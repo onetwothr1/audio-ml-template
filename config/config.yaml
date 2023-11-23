@@ -30,6 +30,8 @@ optimizer:
 
 lr_scheduler:
   class_path: CosineAnnealingLR
+  init_args:
+    T_max: 20
 
 data:
   class_path:

@@ -2,6 +2,7 @@ import torch
 from torch import nn
 from torch import optim
 from torchmetrics import F1Score
+from torch.optim import lr_scheduler
 import numpy as np
 import lightning as L
 
@@ -11,16 +12,16 @@ class LitModule(L.LightningModule):
         net: nn.Module, 
         loss_module: nn.Module, 
         num_classes: int,
-        optim_config: dict,
-        lr_schdlr_config: dict,
+        optim: dict,
+        lr_scheduler: dict,
     ) -> None:
         super().__init__()
         self.net = net
         if loss_module=='CrossEntropyLoss':
             self.loss_module = nn.CrossEntropyLoss()
         self.metric_module = F1Score(task='multiclass', num_classes=num_classes)
-        self.optim_config = optim_config
-        self.lr_schdlr_config = lr_schdlr_config
+        self.optim = optim
+        self.lr_scheduler = lr_scheduler
 
     def forward(self, x):
         return self.net(x)
@@ -52,13 +53,12 @@ class LitModule(L.LightningModule):
         self.log("test/acc", acc)
 
     def configure_optimizers(self):
-        if self.optim_config['class_path']=='SGD':
+        if self.optim['class_path']=='SGD':
             optimizer = optim.SGD(
                                 params = self.net.parameters(), 
-                                lr = self.optim_config['init_args']['lr'],
-                                momentum = self.optim_config['init_args']['momentum'],
-                                weight_decay = self.optim_config['init_args']['weight_decay'])
-        lr_scheduler = None
-        if self.lr_schdlr_config:
-            return [optimizer], [lr_scheduler]
-        return optimizer
+                                lr = self.optim['init_args']['lr'],
+                                momentum = self.optim['init_args']['momentum'],
+                                weight_decay = self.optim['init_args']['weight_decay'])
+        if self.lr_scheduler['class_path']=='CosineAnnealingLR':
+            scheduler = lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.lr_scheduler['T_max'], eta_min = 1e-6)
+        return [optimizer], [scheduler]
