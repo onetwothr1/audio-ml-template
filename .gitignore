@@ -1,4 +1,5 @@
 data/processed
 data/raw
+experiments/
 *.pyc
 __pycache__/

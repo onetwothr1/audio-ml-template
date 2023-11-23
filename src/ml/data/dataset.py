@@ -20,7 +20,7 @@ class CustomDataset(Dataset):
     def __getitem__(self, index):
         file_name = self.file_list[index]
         label = file_name.split('_')[0]
-        x = torch.load(os.path.join(self.data_dir, file_name))        
+        x = torch.load(os.path.join(self.data_dir, file_name))[0]  
         return x, label
 
     def __len__(self):
