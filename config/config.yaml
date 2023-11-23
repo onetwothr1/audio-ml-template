@@ -28,8 +28,7 @@ data:
     root: data
     batch_size: 128
     val_split: 0.2
-    transforms:
-      class_path: 
+    num_worker: 0
 
 optimizer:
   class_path: SGD
@@ -50,3 +49,10 @@ mel_spectrogram:
   pad: 50
   f_min: 25
   f_max: 7500
+
+  mfcc:
+    something:
+
+transform:
+  padding:
+    fixed_size: 75

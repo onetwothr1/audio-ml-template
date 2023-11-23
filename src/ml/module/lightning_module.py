@@ -12,7 +12,7 @@ class LitModule(L.LightningModule):
         loss_module: nn.Module, 
         num_classes: int,
         optim_config: dict,
-        lr_schdlr_config: dict
+        lr_schdlr_config: dict,
     ) -> None:
         super().__init__()
         self.net = net
@@ -27,7 +27,7 @@ class LitModule(L.LightningModule):
     
     def training_step(self, batch, batch_idx):
         x, y = batch
-        pred = self.net(x)
+        pred = self(x)
 
         loss = self.loss_module(pred, y)
         self.log("train/loss", loss.item())
@@ -36,7 +36,7 @@ class LitModule(L.LightningModule):
     
     def validation_step(self, batch, batch_idx):
         x, y = batch
-        pred = self.net(x)
+        pred = self(x)
 
         loss = self.loss_module(pred, y)
         self.log("val/loss", loss.item(), on_epoch=True, on_step=False)
@@ -45,7 +45,11 @@ class LitModule(L.LightningModule):
         self.log('val/acc', on_epoch=True, on_step=False, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        pass
+        x, y = batch
+        pred = self(x)
+
+        acc = self.metric_module(pred, y)
+        self.log("test/acc", acc)
 
     def configure_optimizers(self):
         if self.optim_config['class_path']=='SGD':
@@ -58,4 +62,3 @@ class LitModule(L.LightningModule):
         if self.lr_schdlr_config:
             return [optimizer], [lr_scheduler]
         return optimizer
-
