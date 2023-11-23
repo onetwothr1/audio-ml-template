@@ -1,0 +1,506 @@
+2023-11-23 14:23:39,949 INFO    StreamThr :42181 [internal.py:wandb_internal():86] W&B internal server running at pid: 42181, started at: 2023-11-23 14:23:39.948807
+2023-11-23 14:23:39,950 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status
+2023-11-23 14:23:39,952 INFO    WriterThread:42181 [datastore.py:open_for_write():85] open: ./wandb/run-20231123_142339-l0u6wpax/run-l0u6wpax.wandb
+2023-11-23 14:23:39,953 DEBUG   SenderThread:42181 [sender.py:send():380] send: header
+2023-11-23 14:23:39,957 DEBUG   SenderThread:42181 [sender.py:send():380] send: run
+2023-11-23 14:23:39,962 INFO    SenderThread:42181 [sender.py:_maybe_setup_resume():759] checking resume status for None/audio-mnist/l0u6wpax
+2023-11-23 14:23:40,848 INFO    SenderThread:42181 [dir_watcher.py:__init__():211] watching files in: ./wandb/run-20231123_142339-l0u6wpax/files
+2023-11-23 14:23:40,848 INFO    SenderThread:42181 [sender.py:_start_run_threads():1124] run started: l0u6wpax with start time 1700749419.948777
+2023-11-23 14:23:40,857 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: check_version
+2023-11-23 14:23:40,857 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: check_version
+2023-11-23 14:23:41,002 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: run_start
+2023-11-23 14:23:41,010 DEBUG   HandlerThread:42181 [system_info.py:__init__():32] System info init
+2023-11-23 14:23:41,011 DEBUG   HandlerThread:42181 [system_info.py:__init__():47] System info init done
+2023-11-23 14:23:41,011 INFO    HandlerThread:42181 [system_monitor.py:start():194] Starting system monitor
+2023-11-23 14:23:41,011 INFO    SystemMonitor:42181 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2023-11-23 14:23:41,011 INFO    HandlerThread:42181 [system_monitor.py:probe():214] Collecting system info
+2023-11-23 14:23:41,011 INFO    SystemMonitor:42181 [interfaces.py:start():190] Started cpu monitoring
+2023-11-23 14:23:41,012 INFO    SystemMonitor:42181 [interfaces.py:start():190] Started disk monitoring
+2023-11-23 14:23:41,012 INFO    SystemMonitor:42181 [interfaces.py:start():190] Started gpu monitoring
+2023-11-23 14:23:41,013 INFO    SystemMonitor:42181 [interfaces.py:start():190] Started memory monitoring
+2023-11-23 14:23:41,013 INFO    SystemMonitor:42181 [interfaces.py:start():190] Started network monitoring
+2023-11-23 14:23:41,019 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:41,019 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:41,020 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:41,020 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:41,161 DEBUG   HandlerThread:42181 [system_info.py:probe():196] Probing system
+2023-11-23 14:23:41,163 DEBUG   HandlerThread:42181 [system_info.py:_probe_git():181] Probing git
+2023-11-23 14:23:41,167 DEBUG   HandlerThread:42181 [system_info.py:_probe_git():189] Probing git done
+2023-11-23 14:23:41,167 DEBUG   HandlerThread:42181 [system_info.py:probe():244] Probing system done
+2023-11-23 14:23:41,167 DEBUG   HandlerThread:42181 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-57-generic-x86_64-with-glibc2.35', 'python': '3.10.6', 'heartbeatAt': '2023-11-23T14:23:41.161298', 'startedAt': '2023-11-23T14:23:39.943529', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/home/elicer/project/src/ml/scripts/train.py', 'codePathLocal': 'src/ml/scripts/train.py', 'codePath': 'src/ml/scripts/train.py', 'git': {'remote': 'https://github.com/onetwothr1/audio-ml-template', 'commit': 'ff87717e43ee90b33793e2f44dc71a86717fd53b'}, 'email': 'kimjh1101@snu.ac.kr', 'root': '/home/elicer/project', 'host': '4f9dd64f38c1', 'username': 'elicer', 'executable': '/bin/python3', 'cpu_count': 2, 'cpu_count_logical': 4, 'cpu_freq': {'current': 2889.7545, 'min': 800.0, 'max': 3200.0}, 'cpu_freq_per_core': [{'current': 3200.0, 'min': 800.0, 'max': 3200.0}, {'current': 3200.0, 'min': 800.0, 'max': 3200.0}, {'current': 800.0, 'min': 800.0, 'max': 3200.0}, {'current': 2600.0, 'min': 800.0, 'max': 3200.0}], 'disk': {'/': {'total': 29.9853515625, 'used': 12.34885025024414}}, 'gpu': 'NVIDIA A100 80GB PCIe', 'gpu_count': 1, 'memory': {'total': 32.0}}
+2023-11-23 14:23:41,167 INFO    HandlerThread:42181 [system_monitor.py:probe():224] Finished collecting system info
+2023-11-23 14:23:41,167 INFO    HandlerThread:42181 [system_monitor.py:probe():227] Publishing system info
+2023-11-23 14:23:41,168 DEBUG   HandlerThread:42181 [system_info.py:_save_pip():52] Saving list of pip packages installed into the current environment
+2023-11-23 14:23:41,168 DEBUG   HandlerThread:42181 [system_info.py:_save_pip():68] Saving pip packages done
+2023-11-23 14:23:41,168 INFO    HandlerThread:42181 [system_monitor.py:probe():229] Finished publishing system info
+2023-11-23 14:23:41,170 DEBUG   SenderThread:42181 [sender.py:send():380] send: files
+2023-11-23 14:23:41,170 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-metadata.json with policy now
+2023-11-23 14:23:41,175 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:23:41,176 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:23:41,178 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:23:41,561 DEBUG   SenderThread:42181 [sender.py:send():380] send: telemetry
+2023-11-23 14:23:41,562 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:23:41,562 DEBUG   SenderThread:42181 [sender.py:send():380] send: telemetry
+2023-11-23 14:23:41,562 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:23:41,562 WARNING SenderThread:42181 [sender.py:send_metric():1331] Seen metric with glob (shouldn't happen)
+2023-11-23 14:23:41,850 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_created():271] file/dir created: ./wandb/run-20231123_142339-l0u6wpax/files/requirements.txt
+2023-11-23 14:23:41,850 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_created():271] file/dir created: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-metadata.json
+2023-11-23 14:23:41,851 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_created():271] file/dir created: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:42,148 INFO    wandb-upload_0:42181 [upload_job.py:push():131] Uploaded file /tmp/tmpzlxyg1viwandb/mk7db6e1-wandb-metadata.json
+2023-11-23 14:23:43,027 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:43,027 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:43,028 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:43,028 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:43,849 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:45,009 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:23:45,036 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:45,036 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:45,037 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:45,037 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:45,850 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:47,042 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:47,043 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:47,043 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:47,044 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:47,855 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:49,049 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:49,050 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:49,050 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:49,050 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:49,404 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:23:49,405 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:23:49,405 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:23:49,405 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:23:49,405 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:23:49,406 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:23:49,856 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:49,856 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_created():271] file/dir created: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:23:50,144 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:23:51,059 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:51,059 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:51,060 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:51,060 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:51,856 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:53,065 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:53,066 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:53,066 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:53,066 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:53,857 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:55,072 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:55,072 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:55,072 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:55,073 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:55,330 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:23:55,621 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:23:55,622 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:23:55,622 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:23:55,623 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:23:55,858 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:55,858 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:23:56,183 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:23:56,184 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:23:56,185 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:23:57,080 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:57,080 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:57,080 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:57,081 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:57,858 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:23:59,086 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:59,086 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:23:59,086 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:59,087 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:23:59,859 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:00,364 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:01,092 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:01,092 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:01,093 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:01,093 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:01,788 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:01,789 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:01,789 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:01,790 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:01,860 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:01,860 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:03,099 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:03,100 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:03,100 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:03,100 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:03,860 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:05,106 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:05,106 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:05,106 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:05,106 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:05,672 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:05,861 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:07,112 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:07,112 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:07,113 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:07,113 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:07,861 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:09,119 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:09,119 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:09,120 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:09,120 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:09,818 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:09,820 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:24:09,821 DEBUG   SenderThread:42181 [sender.py:send():380] send: metric
+2023-11-23 14:24:09,821 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:09,822 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:09,823 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:09,862 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:09,862 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:10,685 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:11,132 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:11,134 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:11,136 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:11,136 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:11,136 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:11,136 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:11,136 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:11,184 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:24:11,185 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:24:11,185 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:24:11,863 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/config.yaml
+2023-11-23 14:24:11,864 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:13,145 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:13,145 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:13,146 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:13,146 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:13,864 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:14,139 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:14,140 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:14,140 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:14,140 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:14,864 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:15,152 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:15,153 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:15,153 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:15,153 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:15,864 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:15,948 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:17,159 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:17,159 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:17,159 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:17,160 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:17,866 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:19,165 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:19,166 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:19,166 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:19,166 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:19,867 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:20,031 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:20,032 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:20,032 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:20,033 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:20,868 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:21,138 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:21,174 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:21,174 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:21,175 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:21,175 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:21,868 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:23,181 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:23,181 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:23,181 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:23,181 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:23,868 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:25,187 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:25,187 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:25,188 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:25,188 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:25,869 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:26,164 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:26,194 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:24:26,194 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:24:26,195 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:24:26,570 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:26,572 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:26,573 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:26,574 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:26,869 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:27,194 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:27,194 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:27,194 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:27,194 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:27,870 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:29,200 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:29,200 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:29,201 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:29,201 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:30,884 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:31,190 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:31,207 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:31,207 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:31,207 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:31,207 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:31,885 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:33,214 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:33,214 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:33,215 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:33,215 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:33,891 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:35,227 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:35,227 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:35,227 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:35,227 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:36,411 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:36,435 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:36,437 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:36,437 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:36,438 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:36,889 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:36,890 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:37,239 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:37,239 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:37,239 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:37,239 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:38,659 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:38,659 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:38,660 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:38,660 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:38,890 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:38,890 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:39,246 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:39,246 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:39,246 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:39,246 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:40,890 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:41,014 DEBUG   SystemMonitor:42181 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2023-11-23 14:24:41,015 DEBUG   SenderThread:42181 [sender.py:send():380] send: stats
+2023-11-23 14:24:41,184 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:24:41,230 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:24:41,231 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:24:41,264 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:41,265 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:41,267 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:24:41,267 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:41,267 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:41,268 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:41,268 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:41,483 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:42,891 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:43,291 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:43,292 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:43,292 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:43,292 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:44,892 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:44,965 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:44,967 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:44,967 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:44,968 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:45,297 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:45,298 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:45,298 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:45,298 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:45,892 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:46,569 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:46,892 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:47,303 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:47,304 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:47,304 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:47,304 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:48,893 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:49,314 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:49,314 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:49,314 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:49,314 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:50,894 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:50,907 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:50,908 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:50,908 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:50,909 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:51,321 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:51,322 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:51,322 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:51,322 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:51,689 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:51,894 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:52,895 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:53,328 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:53,328 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:53,328 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:53,328 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:54,896 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:55,335 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:55,335 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:55,336 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:55,336 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:56,185 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:24:56,194 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: stop_status
+2023-11-23 14:24:56,195 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: stop_status
+2023-11-23 14:24:56,897 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:56,902 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:24:57,345 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:57,346 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:57,346 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:57,346 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:57,718 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:24:57,720 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:24:57,720 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:24:57,721 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:24:57,898 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:24:58,898 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:24:59,353 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:59,353 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:24:59,354 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:24:59,354 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:25:00,899 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:01,360 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:25:01,360 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:25:01,360 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:25:01,361 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:25:01,961 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:25:02,899 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:03,367 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:25:03,367 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Insufficient Permissions
+2023-11-23 14:25:03,368 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:25:03,368 ERROR   gpu       :42181 [interfaces.py:monitor():144] Failed to sample metric: Not Supported
+2023-11-23 14:25:04,249 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: partial_history
+2023-11-23 14:25:04,252 DEBUG   SenderThread:42181 [sender.py:send():380] send: history
+2023-11-23 14:25:04,253 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: summary_record
+2023-11-23 14:25:04,253 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:25:04,338 DEBUG   SenderThread:42181 [sender.py:send():380] send: telemetry
+2023-11-23 14:25:04,338 DEBUG   SenderThread:42181 [sender.py:send():380] send: exit
+2023-11-23 14:25:04,339 INFO    SenderThread:42181 [sender.py:send_exit():585] handling exit code: 0
+2023-11-23 14:25:04,339 INFO    SenderThread:42181 [sender.py:send_exit():587] handling runtime: 83
+2023-11-23 14:25:04,339 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:25:04,339 INFO    SenderThread:42181 [sender.py:send_exit():593] send defer
+2023-11-23 14:25:04,339 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,339 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 0
+2023-11-23 14:25:04,339 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,339 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 0
+2023-11-23 14:25:04,340 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 1
+2023-11-23 14:25:04,340 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,340 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 1
+2023-11-23 14:25:04,340 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,340 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 1
+2023-11-23 14:25:04,340 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 2
+2023-11-23 14:25:04,340 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,340 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 2
+2023-11-23 14:25:04,340 INFO    HandlerThread:42181 [system_monitor.py:finish():203] Stopping system monitor
+2023-11-23 14:25:04,340 INFO    HandlerThread:42181 [interfaces.py:finish():202] Joined cpu monitor
+2023-11-23 14:25:04,340 DEBUG   SystemMonitor:42181 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2023-11-23 14:25:04,341 INFO    HandlerThread:42181 [interfaces.py:finish():202] Joined disk monitor
+2023-11-23 14:25:04,341 DEBUG   SystemMonitor:42181 [system_monitor.py:_start():183] Publishing last batch of metrics
+2023-11-23 14:25:04,342 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:25:04,342 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:25:04,343 ERROR   gpu       :42181 [interfaces.py:aggregate():161] Failed to serialize metric: Insufficient Permissions
+2023-11-23 14:25:04,343 INFO    HandlerThread:42181 [interfaces.py:finish():202] Joined gpu monitor
+2023-11-23 14:25:04,343 INFO    HandlerThread:42181 [interfaces.py:finish():202] Joined memory monitor
+2023-11-23 14:25:04,343 INFO    HandlerThread:42181 [interfaces.py:finish():202] Joined network monitor
+2023-11-23 14:25:04,344 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 2
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 3
+2023-11-23 14:25:04,344 DEBUG   SenderThread:42181 [sender.py:send():380] send: stats
+2023-11-23 14:25:04,344 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,344 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 3
+2023-11-23 14:25:04,344 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 3
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 4
+2023-11-23 14:25:04,344 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,344 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 4
+2023-11-23 14:25:04,344 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 4
+2023-11-23 14:25:04,344 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 5
+2023-11-23 14:25:04,344 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,345 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 5
+2023-11-23 14:25:04,345 DEBUG   SenderThread:42181 [sender.py:send():380] send: summary
+2023-11-23 14:25:04,345 INFO    SenderThread:42181 [sender.py:_save_file():1380] saving file wandb-summary.json with policy end
+2023-11-23 14:25:04,345 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,345 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 5
+2023-11-23 14:25:04,345 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 6
+2023-11-23 14:25:04,345 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,345 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 6
+2023-11-23 14:25:04,345 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,345 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 6
+2023-11-23 14:25:04,349 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: status_report
+2023-11-23 14:25:04,614 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 7
+2023-11-23 14:25:04,614 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:04,614 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 7
+2023-11-23 14:25:04,615 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:04,615 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 7
+2023-11-23 14:25:04,900 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/config.yaml
+2023-11-23 14:25:04,901 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:04,901 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:25:05,313 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-23 14:25:05,901 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:06,020 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 8
+2023-11-23 14:25:06,021 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: poll_exit
+2023-11-23 14:25:06,021 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:06,021 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 8
+2023-11-23 14:25:06,022 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:06,022 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 8
+2023-11-23 14:25:06,023 INFO    SenderThread:42181 [job_builder.py:build():298] Attempting to build job artifact
+2023-11-23 14:25:06,024 INFO    SenderThread:42181 [job_builder.py:_get_source_type():428] is repo sourced job
+2023-11-23 14:25:06,045 INFO    SenderThread:42181 [job_builder.py:build():404] adding wandb-job metadata file
+2023-11-23 14:25:06,051 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 9
+2023-11-23 14:25:06,052 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:06,052 DEBUG   SenderThread:42181 [sender.py:send():380] send: artifact
+2023-11-23 14:25:06,052 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 9
+2023-11-23 14:25:06,313 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-23 14:25:06,901 INFO    Thread-12 :42181 [dir_watcher.py:_on_file_modified():288] file/dir modified: ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:07,201 INFO    SenderThread:42181 [sender.py:send_artifact():1458] sent artifact job-https___github.com_onetwothr1_audio-ml-template_src_ml_scripts_train.py - {'id': 'QXJ0aWZhY3Q6NjQ2ODg5NzAw', 'state': 'COMMITTED', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjExODE1MTg0OA==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6NjQ2ODg5NzAw', 'versionIndex': 0}}}
+2023-11-23 14:25:07,202 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:07,202 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 9
+2023-11-23 14:25:07,202 INFO    SenderThread:42181 [dir_watcher.py:finish():358] shutting down directory watcher
+2023-11-23 14:25:07,902 INFO    SenderThread:42181 [dir_watcher.py:finish():388] scan: ./wandb/run-20231123_142339-l0u6wpax/files
+2023-11-23 14:25:07,903 INFO    SenderThread:42181 [dir_watcher.py:finish():402] scan save: ./wandb/run-20231123_142339-l0u6wpax/files/config.yaml config.yaml
+2023-11-23 14:25:07,903 INFO    SenderThread:42181 [dir_watcher.py:finish():402] scan save: ./wandb/run-20231123_142339-l0u6wpax/files/requirements.txt requirements.txt
+2023-11-23 14:25:07,904 INFO    SenderThread:42181 [dir_watcher.py:finish():402] scan save: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-metadata.json wandb-metadata.json
+2023-11-23 14:25:07,907 INFO    SenderThread:42181 [dir_watcher.py:finish():402] scan save: ./wandb/run-20231123_142339-l0u6wpax/files/output.log output.log
+2023-11-23 14:25:07,907 INFO    SenderThread:42181 [dir_watcher.py:finish():402] scan save: ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json wandb-summary.json
+2023-11-23 14:25:07,913 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 10
+2023-11-23 14:25:07,914 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: poll_exit
+2023-11-23 14:25:07,916 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:07,917 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 10
+2023-11-23 14:25:07,917 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:07,917 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 10
+2023-11-23 14:25:07,917 INFO    SenderThread:42181 [file_pusher.py:finish():175] shutting down file pusher
+2023-11-23 14:25:08,314 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-23 14:25:08,314 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: poll_exit
+2023-11-23 14:25:08,378 INFO    wandb-upload_0:42181 [upload_job.py:push():131] Uploaded file ./wandb/run-20231123_142339-l0u6wpax/files/config.yaml
+2023-11-23 14:25:08,556 INFO    wandb-upload_1:42181 [upload_job.py:push():131] Uploaded file ./wandb/run-20231123_142339-l0u6wpax/files/requirements.txt
+2023-11-23 14:25:08,807 INFO    wandb-upload_2:42181 [upload_job.py:push():131] Uploaded file ./wandb/run-20231123_142339-l0u6wpax/files/output.log
+2023-11-23 14:25:08,822 INFO    wandb-upload_3:42181 [upload_job.py:push():131] Uploaded file ./wandb/run-20231123_142339-l0u6wpax/files/wandb-summary.json
+2023-11-23 14:25:09,022 INFO    Thread-11 (_thread_body):42181 [sender.py:transition_state():613] send defer: 11
+2023-11-23 14:25:09,023 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:09,023 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 11
+2023-11-23 14:25:09,023 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:09,023 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 11
+2023-11-23 14:25:09,023 INFO    SenderThread:42181 [file_pusher.py:join():181] waiting for file pusher
+2023-11-23 14:25:09,023 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 12
+2023-11-23 14:25:09,023 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:09,023 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 12
+2023-11-23 14:25:09,023 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:09,023 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 12
+2023-11-23 14:25:09,024 INFO    SenderThread:42181 [file_stream.py:finish():595] file stream finish called
+2023-11-23 14:25:09,315 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-23 14:25:09,689 INFO    SenderThread:42181 [file_stream.py:finish():599] file stream finish is done
+2023-11-23 14:25:09,690 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 13
+2023-11-23 14:25:09,690 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: poll_exit
+2023-11-23 14:25:09,690 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:09,690 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 13
+2023-11-23 14:25:09,691 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:09,691 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 13
+2023-11-23 14:25:09,691 INFO    SenderThread:42181 [sender.py:transition_state():613] send defer: 14
+2023-11-23 14:25:09,692 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: defer
+2023-11-23 14:25:09,692 INFO    HandlerThread:42181 [handler.py:handle_request_defer():172] handle defer: 14
+2023-11-23 14:25:09,692 DEBUG   SenderThread:42181 [sender.py:send():380] send: final
+2023-11-23 14:25:09,693 DEBUG   SenderThread:42181 [sender.py:send():380] send: footer
+2023-11-23 14:25:09,693 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: defer
+2023-11-23 14:25:09,693 INFO    SenderThread:42181 [sender.py:send_request_defer():609] handle sender defer: 14
+2023-11-23 14:25:09,694 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: poll_exit
+2023-11-23 14:25:09,695 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: poll_exit
+2023-11-23 14:25:09,697 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: internal_messages
+2023-11-23 14:25:09,698 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: server_info
+2023-11-23 14:25:09,698 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: server_info
+2023-11-23 14:25:09,738 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: get_summary
+2023-11-23 14:25:09,739 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: sampled_history
+2023-11-23 14:25:09,739 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: job_info
+2023-11-23 14:25:09,891 DEBUG   SenderThread:42181 [sender.py:send_request():407] send_request: job_info
+2023-11-23 14:25:09,892 DEBUG   HandlerThread:42181 [handler.py:handle_request():146] handle_request: shutdown
+2023-11-23 14:25:09,893 INFO    HandlerThread:42181 [handler.py:finish():866] shutting down handler
+2023-11-23 14:25:10,740 INFO    WriterThread:42181 [datastore.py:close():294] close: ./wandb/run-20231123_142339-l0u6wpax/run-l0u6wpax.wandb
+2023-11-23 14:25:10,891 INFO    SenderThread:42181 [sender.py:finish():1536] shutting down sender
+2023-11-23 14:25:10,891 INFO    SenderThread:42181 [file_pusher.py:finish():175] shutting down file pusher
+2023-11-23 14:25:10,891 INFO    SenderThread:42181 [file_pusher.py:join():181] waiting for file pusher

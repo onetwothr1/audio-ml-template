@@ -1,6 +1,5 @@
-wandb:
-  project: audio-mnist
-  name: baseline-1
+project: audio-mnist
+name: baseline-1
 
 seed_everything: 42
 
@@ -17,7 +16,7 @@ model:
 trainer:
   accelerator: gpu
   precision: 16-mixed
-  n_epoch: 3
+  n_epoch: 1
   check_val_every_n_epoch: 1
   plugins:
     - AsyncCheckpointIO
@@ -38,7 +37,7 @@ data:
     root: data
     batch_size: 128
     val_split: 0.2
-    num_worker: 3
+    num_worker: 4
   dataset:
     init_args:
       audio_max_ms: 1000

@@ -1,0 +1,74 @@
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+  | Name          | Type              | Params
+----------------------------------------------------
+0 | net           | BaseLine          | 25.4 K
+1 | loss_module   | CrossEntropyLoss  | 0
+2 | metric_module | MulticlassF1Score | 0
+----------------------------------------------------
+25.4 K    Trainable params
+0         Non-trainable params
+25.4 K    Total params
+0.102     Total estimated model params size (MB)
+
+
+
+
+
+
+
+
+
+
+Epoch 0: 100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 169/169 [00:21<00:00,  7.81it/s, v_num=4wl7]
+
+
+Validation DataLoader 0:  81%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▎                                                         | 35/43 [00:04<00:00,  8.41it/s]
+Traceback (most recent call last):
+  File "/home/elicer/project/src/ml/scripts/train.py", line 59, in <module>
+    trainer.fit(model,
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 203, in run
+    self.on_advance_end()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 374, in on_advance_end
+    call._call_callback_hooks(trainer, "on_train_epoch_end", monitoring_callbacks=True)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 208, in _call_callback_hooks
+    fn(trainer, trainer.lightning_module, *args, **kwargs)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py", line 313, in on_train_epoch_end
+    self._save_topk_checkpoint(trainer, monitor_candidates)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py", line 368, in _save_topk_checkpoint
+    raise MisconfigurationException(m)
+lightning.fabric.utilities.exceptions.MisconfigurationException: `ModelCheckpoint(monitor='val_loss')` could not find the monitored key in the returned metrics: ['train/loss', 'val/loss', 'val/acc', 'epoch', 'step']. HINT: Did you call `log('val_loss', value)` in the `LightningModule`?
+Traceback (most recent call last):
+  File "/home/elicer/project/src/ml/scripts/train.py", line 59, in <module>
+    trainer.fit(model,
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 544, in fit
+    call._call_and_handle_interrupt(
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 44, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 580, in _fit_impl
+    self._run(model, ckpt_path=ckpt_path)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 989, in _run
+    results = self._run_stage()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1035, in _run_stage
+    self.fit_loop.run()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 203, in run
+    self.on_advance_end()
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 374, in on_advance_end
+    call._call_callback_hooks(trainer, "on_train_epoch_end", monitoring_callbacks=True)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 208, in _call_callback_hooks
+    fn(trainer, trainer.lightning_module, *args, **kwargs)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py", line 313, in on_train_epoch_end
+    self._save_topk_checkpoint(trainer, monitor_candidates)
+  File "/home/elicer/.local/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py", line 368, in _save_topk_checkpoint
+    raise MisconfigurationException(m)
+
+lightning.fabric.utilities.exceptions.MisconfigurationException: `ModelCheckpoint(monitor='val_loss')` could not find the monitored key in the returned metrics: ['train/loss', 'val/loss', 'val/acc', 'epoch', 'step']. HINT: Did you call `log('val_loss', value)` in the `LightningModule`?

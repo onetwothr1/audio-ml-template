@@ -1,6 +1,8 @@
+import os
 import wandb
 import lightning as L
-from lightning.loggers import WandbLogger
+from lightning.pytorch.loggers import WandbLogger
+from lightning.pytorch.callbacks import ModelCheckpoint
 
 from ml.models.baseline import BaseLine
 from ml.module.lightning_module import LitModule
@@ -32,12 +34,11 @@ datamodule = LitDataModule(
 
 
 
-wandb.login(key=api-key)
+wandb.login(key = WANDB_API_KEY)
 wandb_logger = WandbLogger(
-                project = CFG['wandb']['project'],
-                name = CFG['wandb']['name'],
+                project = CFG['project'],
+                name = CFG['name'],
                 config = CFG,
-                config_exclude_keys = ['wandb']
                 )
 
 trainer = L.Trainer(
@@ -45,7 +46,13 @@ trainer = L.Trainer(
                 max_epochs = CFG['trainer']['n_epoch'],
                 accelerator = CFG['trainer']['accelerator'],
                 check_val_every_n_epoch = CFG['trainer']['check_val_every_n_epoch'],
-                default_root_dir = EXPERIMENTS_DIR,
+                callbacks = ModelCheckpoint(
+                    save_top_k = 5,
+                    monitor = 'val/loss',
+                    mode = 'min',
+                    dirpath = EXPERIMENTS_DIR + os.sep + CFG['name'],
+                    filename = "{epoch:02d}-{val_loss:.2f}"
+                )
                 )
 
 trainer.fit(model, 
