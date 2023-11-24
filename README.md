@@ -9,9 +9,17 @@ export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"export PYTHO
 ```
 
 
-# To Train
+# How To Train
 1. Type your `wandb` api-key inside `config/wandb-api-key.txt`.
 2. Modify `config/config.yaml` file as you want.
+3. Run following line in a terminal.
 ```
 python scripts/train.py -n 'version_name_for_a_run'
 ```
+
+# EDA
+Run following line in a terminal.
+```
+python utils/EDA.py
+```
+
