@@ -42,9 +42,11 @@ data:
     num_worker: 4
   dataset:
     init_args:
-      audio_max_ms: 1000
+
+transform:
+  audio_max_ms: 1000
+  sample_rate: 16000 # for resampling
   mel_spectrogram:
-    sample_rate: 16000 # it will resample the audio into this value
     n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
     win_length: 400 # default 25ms in linguistics field 
     hop_length: 160 # default 10ms
@@ -54,13 +56,14 @@ data:
     pad: 0
   mfcc:
     something:
-
-transform:
-  time_shift: False
-    shift_max: 0.4
-  masking: False
-    max_mask_percent: 0.1
+  time_shift: 
+    use: False
+    shift_max: !!float 0.4
+  masking: 
+    use: False
+    max_mask_percent: !!float 0.1
     n_freq_mask: 1
     n_time_mask: 1
-  noising: False
-    noise_level: 0.05
+  noising: 
+    use: False
+    noise_level: !!float 0.05

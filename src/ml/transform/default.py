@@ -1,34 +1,153 @@
 import numpy as np
 import torch
+import torchaudio
 from torchaudio import transforms
 
-from ml.transform.base import BaseTransforms
+from base import BaseTransforms
 
+'''
+class for loading, processing, augmenting audio file
+'''
 class Transform(BaseTransforms):
     def __init__(
         self,
+        ausio_max_ms: int,
+        sample_rate: int,
+        mel_spectrogram: dict,
+        time_shift: dict,
+        masking: dict,
+        noising: dict
     ) -> None:
         super().__init__()
-        self.do_time_shift = True
-        self.do_masking = True
-        self.do_noising = True
+        self.audio_max_ms = ausio_max_ms
+        self.sample_rate
+        self.mel_sg = mel_spectrogram
+        self.time_shift_cfg = time_shift
+        self.masking_cfg = masking
+        self.noising_cfg = noising
 
-    def time_shift(spec, shift_max: float):
+    def train_transform(self, file_path):
+        aud = self.open(file_path)
+        aud = self.resample(aud)
+        aud = self.pad_trunc(aud)
+
+        if self.time_shift_cfg['use']:
+            aud = self.time_shift(aud, )
+        if self.noising_cfg['use']:
+            aud = self.noising(aud)
+
+        spec = self.mel_spectrogram(aud)
+        if self.masking_cfg:
+            spec = self.masking(spaec)
+        return spec
+
+    def val_transform(self, file_path):
+        aud = self.open(file_path)
+        aud = self.resample(aud)
+        aud = self.pad_trunc(aud)
+        spec = self.mel_spectrogram(aud)
+        return spec
+    
+    def test_transform(self, file_path):
+        return self.val_transform(file_path)
+
+    def open(audio_file):
+        sig, sr = torchaudio.load(audio_file)
+        return (sig, sr)
+
+    def rechannel(aud, new_channel):
+        sig, sr = aud
+
+        if (sig.shape[0] == new_channel):
+            # Nothing to do
+            return aud
+
+        if (new_channel == 1):
+            # Convert from stereo to mono by selecting only the first channel
+            resig = sig[:1, :]
+        else:
+            # Convert from mono to stereo by duplicating the first channel
+            resig = torch.cat([sig, sig])
+
+        return ((resig, sr))
+
+    def resample(aud):
+        sig, sr = aud
+
+        if (sr == self.sample_rate):
+            return aud
+
+        num_channels = sig.shape[0]
+        # Resample first channel
+        resig = torchaudio.transforms.Resample(sr, self.sample_rate)(sig[:1,:])
+        if (num_channels > 1):
+            # Resample the second channel and merge both channels
+            retwo = torchaudio.transforms.Resample(sr, self.sample_rate)(sig[1:,:])
+            resig = torch.cat([resig, retwo])
+
+        return ((resig, self.sample_rate))
+
+    def pad_trunc(aud):
+        sig, sr = aud
+        num_rows, sig_len = sig.shape
+        max_len = sr//1000 * self.audio_max_ms
+
+        if (sig_len > max_len):
+            # Truncate the signal to the given length
+            sig = sig[:,:max_len]
+
+        elif (sig_len < max_len):
+            # Length of padding to add at the beginning and end of the signal
+            pad_begin_len = random.randint(0, max_len - sig_len)
+            pad_end_len = max_len - sig_len - pad_begin_len
+
+            # Pad with 0s
+            pad_begin = torch.zeros((num_rows, pad_begin_len))
+            pad_end = torch.zeros((num_rows, pad_end_len))
+
+            sig = torch.cat((pad_begin, sig, pad_end), 1)
+        
+        return (sig, sr)
+    
+    def mel_spectrogram(aud):
+        sig,sr = aud
+        top_db = 80
+
+        # spec has shape [channel, n_mels, time], where channel is mono, stereo etc
+        spec = transforms.MelSpectrogram(
+                    sample_rate=sr,
+                    n_mels = self.mel_sg['n_mels'], 
+                    n_fft = self.mel_sg['n_fft'], 
+                    win_len = self.mel_sg['win_length'],
+                    hop_len = self.mel_sg['hop_length'],
+                    f_min = self.mel_sg['f_min'],
+                    f_max = self.mel_sg['f_max'],
+                    pad = self.mel_sg['pad'],
+                )(sig)
+
+
+        # Convert to decibels
+        spec = transforms.AmplitudeToDB(top_db=top_db)(spec)
+        return (spec)
+
+
+    def time_shift(spec):
         time_len = spec.size(2)
-        shift_amt = int(random.random() * shift_max * time_len)
+        shift_amt = int(random.random() * self.time_shift_cfg['shift_max'] * time_len)
         return torch.roll(spec, shifts=shift_amt, dims=2)
 
-    def masking(self, spec: torch.tensor, max_mask_pct: float=0.1, n_freq_mask: int=1, n_time_mask: int=1):
+    def masking(self, spec: torch.tensor):
         n_mels, n_steps = data.size()
         masking_value = data.mean()
-        aug_spec = spec
+        # aug_spec = spec
+        mac_mask_pct = self.masking_cfg['max_mask_percent']
 
         freq_mask_param = max_mask_pct * n_mels
-        for _ in range(n_freq_mask):
+        for _ in range(self.masking_cfg['n_freq_mask']):
             aug_spec = transforms.FrequencyMasking(freq_mask_param)(aug_spec, mask_value)
 
         time_mask_param = max_mask_pct * n_steps
-        for _ in range(n_time_mask):
+        for _ in range(self.masking_cfg['n_time_mask']):
             aug_spec = transforms.TimeMasking(time_mask_param)(aug_spec, mask_value)
         return aug_spec
 
@@ -36,18 +155,3 @@ class Transform(BaseTransforms):
         noise = torch.randn_like(data) * noise_level
         aug_data = data + noise
         return aug_data
-
-    def train_transform(self, x):
-        if self.do_time_shift:
-            x = self.time_shift(x)
-        if self.do_masking(x):
-            x = self.masking(x)
-        if self.do_noising(x):
-            x = self.noising(x, noise_level)
-        return x
-
-    def val_transform(self, x):
-        return x
-    
-    def test_transform(self, x):
-        return x

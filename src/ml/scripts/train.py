@@ -42,9 +42,12 @@ datamodule = LitDataModule(
                 val_split = CFG['data']['init_args']['val_split'],
                 num_workers = CFG['data']['init_args']['num_worker'],
                 audio_max_ms = CFG['data']['dataset']['init_args']['audio_max_ms'],
-                mel_spectrogram = CFG['data']['mel_spectrogram'],
                 transform = Transform(
-                    
+                    audio_max_ms = CFG['transfrom']['audio_max_ms'],
+                    mel_spectrogram = CFG['transform']['mel_spectrogram'],
+                    time_shift = CFG['transform']['time_shift'],
+                    masking = CFG['transform']['masking'],
+                    noising = CFG['transform']['noising']
                 )
                 )
 

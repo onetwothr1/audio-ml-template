@@ -4,8 +4,7 @@ import os
 from typing import Callable
 from glob import glob
 
-from ml.utils.constants import DATA_DIR
-from ml.utils.audio_util import AudioUtil
+from ..utils.constants import DATA_DIR
 
 class AudioDataset(Dataset):
     def __init__(
@@ -27,23 +26,10 @@ class AudioDataset(Dataset):
         file_path = self.file_list[index]
         label = int(file_path.split(os.sep)[-1].split('_')[0])
 
-        audio = AudioUtil.open(file_path)
-        audio = AudioUtil.pad_trunc(audio, self.audio_max_ms)
-        # audio = AudioUtil.time_shift(audio, self.shift_pct)
-    
-        mel_spectro = AudioUtil.mel_spectrogram(
-                                    audio, 
-                                    n_mels = self.mel_sg['n_mels'], 
-                                    n_fft = self.mel_sg['n_fft'], 
-                                    win_len = self.mel_sg['win_length'],
-                                    hop_len = self.mel_sg['hop_length'],
-                                    f_min = self.mel_sg['f_min'],
-                                    f_max = self.mel_sg['f_max'],
-                                    pad = self.mel_sg['pad'],
-                                    )
+        # laod .wav file, augment, turn unto MelSpectrogram or MFCC
+        data = self.transform(file_path)
 
-        mel_spectro_aug = self.transform(mel_spectro)
-        return mel_spectro_aug, label
+        return data, label
 
     def __len__(self):
         return len(self.file_list)
