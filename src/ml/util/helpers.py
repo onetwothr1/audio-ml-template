@@ -3,7 +3,7 @@ import math
 import torch.utils.data
 from collections import defaultdict
 
-from ml.utils.constants import *
+from util.constants import *
 
 def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split, random_state=42):
     '''

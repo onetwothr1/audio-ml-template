@@ -4,21 +4,16 @@ import os
 from typing import Callable
 from glob import glob
 
-from ..utils.constants import DATA_DIR
+from util.constants import DATA_DIR
 
 class AudioDataset(Dataset):
     def __init__(
         self,
         data_dir,
-        audio_max_ms: int,
-        mel_spectrogram: dict,
         transform: Callable=None,
     ) -> None:
         self.data_dir = data_dir
         self.file_list = glob(self.data_dir + os.sep + "*.wav")
-
-        self.audio_max_ms = audio_max_ms
-        self.mel_sg = mel_spectrogram
         self.transform = transform
 
 
@@ -28,7 +23,6 @@ class AudioDataset(Dataset):
 
         # laod .wav file, augment, turn unto MelSpectrogram or MFCC
         data = self.transform(file_path)
-
         return data, label
 
     def __len__(self):

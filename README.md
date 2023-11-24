@@ -5,7 +5,7 @@ Template code for audio model, using [Pytorch Lightning](https://github.com/Ligh
 # Preparaton
 First, excecute following line, in terminal. It ensures pyton to recognize its packages and modules.
 ```
-export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"
+export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory
 ```
 
 

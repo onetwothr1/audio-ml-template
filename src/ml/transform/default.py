@@ -1,17 +1,18 @@
+import random
 import numpy as np
 import torch
 import torchaudio
 from torchaudio import transforms
 
-from base import BaseTransforms
+from .base import BaseTransform
 
 '''
 class for loading, processing, augmenting audio file
 '''
-class Transform(BaseTransforms):
+class Transform(BaseTransform):
     def __init__(
         self,
-        ausio_max_ms: int,
+        audio_max_ms: int,
         sample_rate: int,
         mel_spectrogram: dict,
         time_shift: dict,
@@ -19,26 +20,26 @@ class Transform(BaseTransforms):
         noising: dict
     ) -> None:
         super().__init__()
-        self.audio_max_ms = ausio_max_ms
-        self.sample_rate
+        self.audio_max_ms = audio_max_ms
+        self.sample_rate = sample_rate
         self.mel_sg = mel_spectrogram
         self.time_shift_cfg = time_shift
         self.masking_cfg = masking
         self.noising_cfg = noising
 
     def train_transform(self, file_path):
-        aud = self.open(file_path)
+        aud = Transform.open(file_path)
         aud = self.resample(aud)
         aud = self.pad_trunc(aud)
 
         if self.time_shift_cfg['use']:
-            aud = self.time_shift(aud, )
+            aud = self.time_shift(aud)
         if self.noising_cfg['use']:
             aud = self.noising(aud)
 
         spec = self.mel_spectrogram(aud)
         if self.masking_cfg:
-            spec = self.masking(spaec)
+            spec = self.masking(spec)
         return spec
 
     def val_transform(self, file_path):
@@ -71,7 +72,7 @@ class Transform(BaseTransforms):
 
         return ((resig, sr))
 
-    def resample(aud):
+    def resample(self, aud):
         sig, sr = aud
 
         if (sr == self.sample_rate):
@@ -87,7 +88,7 @@ class Transform(BaseTransforms):
 
         return ((resig, self.sample_rate))
 
-    def pad_trunc(aud):
+    def pad_trunc(self, aud):
         sig, sr = aud
         num_rows, sig_len = sig.shape
         max_len = sr//1000 * self.audio_max_ms
@@ -109,7 +110,7 @@ class Transform(BaseTransforms):
         
         return (sig, sr)
     
-    def mel_spectrogram(aud):
+    def mel_spectrogram(self, aud):
         sig,sr = aud
         top_db = 80
 
@@ -118,8 +119,8 @@ class Transform(BaseTransforms):
                     sample_rate=sr,
                     n_mels = self.mel_sg['n_mels'], 
                     n_fft = self.mel_sg['n_fft'], 
-                    win_len = self.mel_sg['win_length'],
-                    hop_len = self.mel_sg['hop_length'],
+                    win_length = self.mel_sg['win_length'],
+                    hop_length = self.mel_sg['hop_length'],
                     f_min = self.mel_sg['f_min'],
                     f_max = self.mel_sg['f_max'],
                     pad = self.mel_sg['pad'],
@@ -131,27 +132,28 @@ class Transform(BaseTransforms):
         return (spec)
 
 
-    def time_shift(spec):
+    def time_shift(self, spec):
         time_len = spec.size(2)
         shift_amt = int(random.random() * self.time_shift_cfg['shift_max'] * time_len)
         return torch.roll(spec, shifts=shift_amt, dims=2)
 
     def masking(self, spec: torch.tensor):
-        n_mels, n_steps = data.size()
-        masking_value = data.mean()
+        n_mels, n_steps = spec.size(1), spec.size(2)
+        masking_value = spec.mean()
         # aug_spec = spec
-        mac_mask_pct = self.masking_cfg['max_mask_percent']
+        max_mask_pct = self.masking_cfg['max_mask_percent']
 
         freq_mask_param = max_mask_pct * n_mels
         for _ in range(self.masking_cfg['n_freq_mask']):
-            aug_spec = transforms.FrequencyMasking(freq_mask_param)(aug_spec, mask_value)
+            aug_spec = transforms.FrequencyMasking(freq_mask_param)(spec, masking_value)
 
         time_mask_param = max_mask_pct * n_steps
         for _ in range(self.masking_cfg['n_time_mask']):
-            aug_spec = transforms.TimeMasking(time_mask_param)(aug_spec, mask_value)
+            aug_spec = transforms.TimeMasking(time_mask_param)(spec, masking_value)
         return aug_spec
 
-    def noising(self, data: torch.tensor, noise_level: float):
-        noise = torch.randn_like(data) * noise_level
-        aug_data = data + noise
-        return aug_data
+    def noising(self, aud: torch.tensor):
+        sig, sr = aud
+        noise = torch.randn_like(sig) * self.noising_cfg['noise_level']
+        aug_data = sig + noise
+        return aug_data, sr

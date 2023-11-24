@@ -1,9 +1,9 @@
 from torch.utils.data import Subset, DataLoader
 import lightning as L
 
-from ml.transform.base import BaseTransforms
-from ml.data.dataset import AudioDataset
-from ml.utils.helpers import stratified_split
+from .dataset import AudioDataset
+from transform import BaseTransform
+from util.helpers import stratified_split
 
 
 class LitDataModule(L.LightningDataModule):
@@ -14,9 +14,7 @@ class LitDataModule(L.LightningDataModule):
         batch_size: int,
         val_split: float,
         num_workers: int,
-        audio_max_ms: int,
-        mel_spectrogram: dict,
-        transform: BaseTransforms=None
+        transform: BaseTransform
     ) -> None:
         super().__init__()
         self.train_data_dir = train_data_dir
@@ -24,8 +22,6 @@ class LitDataModule(L.LightningDataModule):
         self.val_split = val_split
         self.batch_size = batch_size
         self.num_workers = num_workers
-        self.audio_max_ms = audio_max_ms
-        self.mel_spectrogram = mel_spectrogram
         self.train_transform = transform.train_transform
         self.val_transform = transform.val_transform
         self.test_transform = transform.test_transform
@@ -33,9 +29,7 @@ class LitDataModule(L.LightningDataModule):
     def setup(self, stage: str=None):
         dataset = AudioDataset(
             data_dir = self.train_data_dir,
-            audio_max_ms = self.audio_max_ms,
-            mel_spectrogram = self.mel_spectrogram, 
-            transform = None)
+            transform = self.train_transform)
 
         self.train_dataset, self.train_labels, self.test_dataset, self.test_labels = \
             stratified_split(dataset, dataset.make_labels(), val_split=0.1, random_state=42)

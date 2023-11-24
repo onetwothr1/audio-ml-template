@@ -60,5 +60,8 @@ class LitModule(L.LightningModule):
                                 momentum = self.optim['init_args']['momentum'],
                                 weight_decay = self.optim['init_args']['weight_decay'])
         if self.lr_scheduler['class_path']=='CosineAnnealingLR':
-            scheduler = lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.lr_scheduler['T_max'], eta_min = 1e-6)
+            scheduler = lr_scheduler.CosineAnnealingLR(
+                                optimizer, 
+                                T_max=self.lr_scheduler['init_args']['T_max'], 
+                                eta_min = 1e-6)
         return [optimizer], [scheduler]

@@ -1,6 +1,6 @@
 import abc
 
-class BaseTransforms(abc.ABC):
+class BaseTransform(abc.ABC):
     @abc.abstractmethod
     def train_transform(self, x):
         raise NotImplementedError
