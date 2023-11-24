@@ -1,6 +1,7 @@
 import abc
+import torchaudio
 
-class BaseTransform(abc.ABC):
+class Transform(abc.ABC):
     @abc.abstractmethod
     def train_transform(self, x):
         raise NotImplementedError
@@ -12,3 +13,8 @@ class BaseTransform(abc.ABC):
     @abc.abstractmethod
     def test_transform(self, x):
         raise NotImplementedError
+
+    @staticmethod
+    def open(audio_file):
+        sig, sr = torchaudio.load(audio_file)
+        return (sig, sr)

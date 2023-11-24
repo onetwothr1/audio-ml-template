@@ -4,28 +4,30 @@ import torch
 import torchaudio
 from torchaudio import transforms
 
-from .base import BaseTransform
+from .base import Transform
 
 '''
 class for loading, processing, augmenting audio file
 '''
-class Transform(BaseTransform):
+class CustomTransform(Transform):
     def __init__(
         self,
-        audio_max_ms: int,
-        sample_rate: int,
-        mel_spectrogram: dict,
-        time_shift: dict,
-        masking: dict,
-        noising: dict
+        **kwargs,
+        # audio_max_ms: int,
+        # sample_rate: int,
+        # mel_spectrogram: dict,
+        # time_shift: dict,
+        # masking: dict,
+        # noising: dict
     ) -> None:
         super().__init__()
-        self.audio_max_ms = audio_max_ms
-        self.sample_rate = sample_rate
-        self.mel_sg = mel_spectrogram
-        self.time_shift_cfg = time_shift
-        self.masking_cfg = masking
-        self.noising_cfg = noising
+
+        self.audio_max_ms = kwargs.get('audio_max_ms')
+        self.sample_rate = kwargs.get('sample_rate')
+        self.mel_sg_cfg = kwargs.get('mel_spectrogram')
+        self.time_shift_cfg = kwargs.get('time_shift')
+        self.masking_cfg = kwargs.get('masking')
+        self.noising_cfg = kwargs.get('noising')
 
     def train_transform(self, file_path):
         aud = Transform.open(file_path)
@@ -43,7 +45,7 @@ class Transform(BaseTransform):
         return spec
 
     def val_transform(self, file_path):
-        aud = self.open(file_path)
+        aud = Transform.open(file_path)
         aud = self.resample(aud)
         aud = self.pad_trunc(aud)
         spec = self.mel_spectrogram(aud)
@@ -52,9 +54,6 @@ class Transform(BaseTransform):
     def test_transform(self, file_path):
         return self.val_transform(file_path)
 
-    def open(audio_file):
-        sig, sr = torchaudio.load(audio_file)
-        return (sig, sr)
 
     def rechannel(aud, new_channel):
         sig, sr = aud
@@ -117,13 +116,13 @@ class Transform(BaseTransform):
         # spec has shape [channel, n_mels, time], where channel is mono, stereo etc
         spec = transforms.MelSpectrogram(
                     sample_rate=sr,
-                    n_mels = self.mel_sg['n_mels'], 
-                    n_fft = self.mel_sg['n_fft'], 
-                    win_length = self.mel_sg['win_length'],
-                    hop_length = self.mel_sg['hop_length'],
-                    f_min = self.mel_sg['f_min'],
-                    f_max = self.mel_sg['f_max'],
-                    pad = self.mel_sg['pad'],
+                    n_mels = self.mel_sg_cfg['n_mels'], 
+                    n_fft = self.mel_sg_cfg['n_fft'], 
+                    win_length = self.mel_sg_cfg['win_length'],
+                    hop_length = self.mel_sg_cfg['hop_length'],
+                    f_min = self.mel_sg_cfg['f_min'],
+                    f_max = self.mel_sg_cfg['f_max'],
+                    pad = self.mel_sg_cfg['pad'],
                 )(sig)
 
 

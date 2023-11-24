@@ -3,19 +3,22 @@ project: audio-mnist
 seed_everything: 42
 
 model:
-  class_path: BaseLine
-  init_args:
-    net:
-      class_path: Cifar10Resnet18
-      init_args:
-        num_classes: 10
-    loss_module:
-      class_path: CrossEntropyLoss
+  class_path:   BaseLine
+  HFAutoClassifier:
+    init_args:
+      model_name: facebook/wav2vec2-base
+      num_classes: 10
+      
+  BaseLine:
+    init_args:
+      num_classes: 10
+  loss_module:
+    class_path: CrossEntropyLoss
 
 trainer:
   accelerator: gpu
   precision: 16-mixed
-  n_epoch: 20
+  n_epoch: 1
   check_val_every_n_epoch: 1
   plugins:
     - AsyncCheckpointIO
@@ -38,31 +41,40 @@ data:
     root: data
     batch_size: 128
     val_split: 0.2
-    num_worker: 4
+    num_worker: 2
   dataset:
     init_args:
 
 transform:
-  audio_max_ms: 1000
-  sample_rate: 16000 # for resampling
-  mel_spectrogram:
-    n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
-    win_length: 400 # default 25ms in linguistics field 
-    hop_length: 160 # default 10ms
-    n_mels: 40
-    f_min: 25
-    f_max: 7500
-    pad: 0
-  mfcc:
-    something:
-  time_shift: 
-    use: !!bool False
-    shift_max: !!float 0.4
-  masking: 
-    use: !!bool False
-    max_mask_percent: !!float 0.1
-    n_freq_mask: 1
-    n_time_mask: 1
-  noising: 
-    use: !!bool True
-    noise_level: !!float 0.01
+  class_path: CustomTransform
+  Wav2Vec2Extractor:
+    init_args:
+      model_name: facebook/wav2vec2-base
+      sample_rate: 16000
+      audio_max_ms: 1000
+
+  CustomTransform:
+    init_args:
+      audio_max_ms: 1000
+      sample_rate: 16000 # for resampling
+      mel_spectrogram:
+        n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
+        win_length: 400 # default 25ms in linguistics field 
+        hop_length: 160 # default 10ms
+        n_mels: 40
+        f_min: 25
+        f_max: 7500
+        pad: 0
+      mfcc:
+        something:
+      time_shift: 
+        use: !!bool False
+        shift_max: !!float 0.4
+      masking: 
+        use: !!bool False
+        max_mask_percent: !!float 0.1
+        n_freq_mask: 1
+        n_time_mask: 1
+      noising: 
+        use: !!bool True
+        noise_level: !!float 0.01

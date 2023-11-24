@@ -1,8 +1,9 @@
 from torch import nn
 
 class BaseLine(nn.Module):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
+        self.num_classes = kwargs.get('num_classes')
         self.conv = nn.Sequential(
             nn.Conv2d(in_channels=1, out_channels=8, kernel_size=(5,5), stride=(2,2), padding=(2,2)),
             nn.ReLU(),
@@ -21,7 +22,7 @@ class BaseLine(nn.Module):
             nn.BatchNorm2d(64),
             )
         self.ap = nn.AdaptiveAvgPool2d(output_size=1)
-        self.lin = nn.Linear(in_features=64, out_features=10)
+        self.lin = nn.Linear(in_features=64, out_features=self.num_classes)
 
     def forward(self, x):
         x = self.conv(x)

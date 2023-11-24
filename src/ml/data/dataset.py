@@ -16,12 +16,11 @@ class AudioDataset(Dataset):
         self.file_list = glob(self.data_dir + os.sep + "*.wav")
         self.transform = transform
 
-
     def __getitem__(self, index):
         file_path = self.file_list[index]
         label = int(file_path.split(os.sep)[-1].split('_')[0])
 
-        # laod .wav file, augment, turn unto MelSpectrogram or MFCC
+        # laod .wav file, augment, extract fetures (Mel-Spectrogram / MFCC / Deeplearing-based)
         data = self.transform(file_path)
         return data, label
 

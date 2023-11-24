@@ -11,7 +11,5 @@ CONFIG_DIR = os.path.join(ROOT_DIR, "config")
 with open(os.path.join(CONFIG_DIR, 'wandb_api_key.txt'), 'r') as file:
     WANDB_API_KEY = file.readline()
 
-DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
 with open(os.path.join(CONFIG_DIR, 'config.yaml')) as f:
     CFG = yaml.load(f, Loader=yaml.FullLoader)

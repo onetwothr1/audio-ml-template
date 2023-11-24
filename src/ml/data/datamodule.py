@@ -2,7 +2,7 @@ from torch.utils.data import Subset, DataLoader
 import lightning as L
 
 from .dataset import AudioDataset
-from transform import BaseTransform
+from transform import Transform
 from util.helpers import stratified_split
 
 
@@ -14,7 +14,8 @@ class LitDataModule(L.LightningDataModule):
         batch_size: int,
         val_split: float,
         num_workers: int,
-        transform: BaseTransform
+        transform: Transform,
+        collate_fn: callable=None
     ) -> None:
         super().__init__()
         self.train_data_dir = train_data_dir
@@ -25,6 +26,7 @@ class LitDataModule(L.LightningDataModule):
         self.train_transform = transform.train_transform
         self.val_transform = transform.val_transform
         self.test_transform = transform.test_transform
+        self.collate_fn = collate_fn
 
     def setup(self, stage: str=None):
         dataset = AudioDataset(
@@ -42,17 +44,17 @@ class LitDataModule(L.LightningDataModule):
 
     def train_dataloader(self):
         return DataLoader(
-            self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers
+            self.train_dataset, batch_size=self.batch_size, shuffle=True, num_workers=self.num_workers, collate_fn=self.collate_fn
         )
 
     def val_dataloader(self):
         return DataLoader(
-            self.val_dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers
+            self.val_dataset, batch_size=self.batch_size, shuffle=False, num_workers=self.num_workers, collate_fn=self.collate_fn
         )
 
     def test_dataloader(self):
         return DataLoader(
-            self.test_dataset, batch_size=100, shuffle=False, num_workers=self.num_workers
+            self.test_dataset, batch_size=100, shuffle=False, num_workers=self.num_workers, collate_fn=self.collate_fn
         )
 
     # def prepare_data(self):
