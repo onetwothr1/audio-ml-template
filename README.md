@@ -42,8 +42,11 @@ python scripts/train.py -tune
 ```
 It will automatically find the best lr and start training with it. Graph image of lr_finder is saved in `lr_finder.png`.
 
+
+## Note
+If you encounter an error while using a Hugging Face model, in most cases, reducing the batch size resolves the issue.
+
 # EDA
 ```
 python utils/EDA.py
 ```
-
