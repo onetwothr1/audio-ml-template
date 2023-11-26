@@ -21,6 +21,7 @@ parser.add_argument('--tune', dest='tune', default=False, action='store_true')
 parser.add_argument('-n', '--name', dest='wandb_run_name', default='') # wandb run name. If None, do not use wandb logger
 parser.add_argument('-c', '--ckptpath', dest='ckpt_path', default=None) # model checkpoint to resume training
 parser.add_argument('--run-id', dest='wandb_run_id', default=None) # wandb run-id to resume training
+parser.add_argument('--last-epoch', dest='last_epoch', default=None) # last epoch number in case of resuming a training
 
 args = parser.parse_args()
 
