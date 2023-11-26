@@ -3,10 +3,10 @@ project: dacon-emotion
 seed_everything: 42
 
 model:
-  class_path: BaseLine
+  class_path: HFAutoClassifier
   HFAutoClassifier:
     init_args:
-      model_name: facebook/wav2vec2-base      
+      model_name: Rajaram1996/Hubert_emotion
   BaseLine:
     init_args:
       arg:
@@ -19,7 +19,7 @@ trainer:
   precision: 16-mixed
   n_epoch: 50
   check_val_every_n_epoch: 1
-  lr: 0.2
+  lr: 1e-5
   plugins:
     - AsyncCheckpointIO
 
@@ -27,7 +27,7 @@ optimizer:
   class_path: SGD
   init_args:
     momentum: 0.9
-    weight_decay: 0.0001
+    weight_decay: 0.01
 
 lr_scheduler:
   class_path: CosineAnnealingLR
@@ -38,23 +38,23 @@ data:
   class_path:
   init_args:
     root: data
-    batch_size: 128
+    batch_size: 16
     val_split: 0.2
-    num_worker: 3
+    num_worker: 4
   dataset:
     init_args:
 
 transform:
-  class_path: CustomTransform
+  class_path: Wav2Vec2Extractor
   Wav2Vec2Extractor:
     init_args:
-      model_name: facebook/wav2vec2-base
+      model_name: Rajaram1996/Hubert_emotion
       sample_rate: 16000
-      audio_max_ms: 1000
+      audio_max_ms: 4000
 
   CustomTransform:
     init_args:
-      audio_max_ms: 1000
+      audio_max_ms: 4000
       sample_rate: 16000 # for resampling
       mel_spectrogram:
         n_fft: 512 # n_fft >= win_length. recommend value of 2^n for computation speed
