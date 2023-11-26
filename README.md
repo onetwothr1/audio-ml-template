@@ -23,11 +23,30 @@ export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"
 3. Modify `DATA_DIR` variable in `src/ml/util/constants.py` with the path of data for training. All the data should be inside that directory.
 4. Run following line in a terminal.
 ```
-python scripts/train.py -n 'version_name_for_a_run'
+python scripts/train.py
 ```
+<br>
+
+## wandb logger 
+```
+python scripts/train.py -n 'wandb-run-name'
+```
+<br>
+
+## Resume training
+```
+python scripts/train.py -c 'model checkpoint file path' --run-id 'run-id of previous wandb run --last-epoch 'last epoch number'
+```
+Can omit '--run-id' if not using wandb. 
+<br>Can omit '--last-epoch' if not using learning rate scheduler.
+<br><br>
+## lr_finder
+```
+python scripts/train.py -tune
+```
+It will automatically find the best lr and start training with it. Graph image of lr_finder is saved in `lr_finder.png`.
 
 # EDA
-Run following line in a terminal.
 ```
 python utils/EDA.py
 ```
