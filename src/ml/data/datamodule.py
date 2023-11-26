@@ -25,7 +25,7 @@ class LitDataModule(L.LightningDataModule):
         self.train_data_dir = train_data_dir
         self.test_data_dir = test_data_dir
         self.train_df = pd.read_csv(train_csv_path, header=0)
-        self.test_df = pd.read_csv(test_csv_path, header=0)
+        self.test_df = pd.read_csv(test_csv_path, header=0) if test_csv_path else None
 
         self.val_split = val_split
         self.batch_size = batch_size
@@ -68,22 +68,6 @@ class LitDataModule(L.LightningDataModule):
                 transform = self.test_transform,
                 test = True)
             self.test_dataset.transform = self.test_transform
-
-
-        # indices = list(range(len(self.train_dataset)))
-        # train_labels = self.train_dataset.get_labels()
-        # train_idx, val_idx = next(sss.split(indices, train_labels))
-        # self.train_dataset = Subset(self.train_dataset, train_idx)
-        # self.val_dataset = Subset(self.train_dataset, val_idx)
-
-        # self.train_dataset, train_labels, self.val_dataset, val_labels = \
-        #     stratified_split(self.train_dataset, self.train_dataset.get_labels(), val_split=self.val_split)
-        # # print(type(self.train_dataset))
-        # self.train_dataset = AudioDataset(self.train_dataset)
-        # self.val_dataset = AudioDataset(self.val_dataset)
-        # self.train_dataset.set_labels(train_labesl)
-        # self.val_dataset.set_labels(val_labels)
-
 
     def train_dataloader(self):
         return DataLoader(
