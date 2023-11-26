@@ -33,7 +33,8 @@ class Wav2Vec2Extractor(Transform):
     
     def collate_fn(self, batch):
         x, y = zip(*batch)
-        x = pad_sequence([xi.T for xi in x], batch_first=True)
-        # y = pad_sequence([torch.tensor([yi]).T for yi in y], batch_first=True)  # Convert scalar targets to 1D tensors
-        y = pad_sequence([torch.tensor([yi]).T for yi in y], batch_first=True).squeeze(-1)  # Convert scalar targets to 1D tensors
+        # x.permute(*torch.arange(x.ndim - 1, -1, -1)) <- it takes transpose of x. that's all
+        # this code does not make training slower.
+        x = pad_sequence([xi.permute(*torch.arange(xi.ndim - 1, -1, -1)) for xi in x], batch_first=True) # get transpose of x
+        y = pad_sequence([torch.tensor([yi]).permute(*torch.arange(torch.tensor([yi]).ndim - 1, -1, -1)) for yi in y], batch_first=True).squeeze(-1)  # Convert scalar targets to 1D tensors
         return x, y
