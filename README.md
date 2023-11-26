@@ -11,9 +11,7 @@ export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"
 
 # Prepare Data
 * All the sound file data (`'*.wav'`) should be located in one directory, each for train and test. 
-<br>
 * CSV file with two columns, `'file_path'` and `'label'` should be prepared, each for train and test. `'file_path'` should be a path after the train(or test) directory. For example, a soundfile 'dataset/train/data1.wav's path on CSV is 'data1.wav'. `'label'` can be a string or integer.
-<br>
 * In `src/ml/script/train.py`, type the path of data directory and csv file, each for train and test.
 
 
@@ -25,13 +23,11 @@ export PYTHONPATH="${PYTHONPATH}:/path/of/the/project/src/directory"
 ```
 python scripts/train.py
 ```
-<br>
 
 ## wandb logger 
 ```
 python scripts/train.py -n 'wandb-run-name'
 ```
-<br>
 
 ## Resume training
 ```
@@ -39,7 +35,7 @@ python scripts/train.py -c 'model checkpoint file path' --run-id 'run-id of prev
 ```
 Can omit '--run-id' if not using wandb. 
 <br>Can omit '--last-epoch' if not using learning rate scheduler.
-<br><br>
+<br>
 ## lr_finder
 ```
 python scripts/train.py -tune
