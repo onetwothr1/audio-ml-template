@@ -3,8 +3,9 @@ import wandb
 import lightning as L
 from lightning.pytorch import seed_everything
 from lightning.pytorch.loggers import WandbLogger
-from lightning.pytorch.callbacks import ModelCheckpoint, LearningRateMonitor, DeviceStatsMonitor
+from lightning.pytorch.callbacks import ModelCheckpoint, LearningRateMonitor
 from lightning.pytorch.callbacks.early_stopping import EarlyStopping
+from lightning.pytorch.tuner import Tuner
 
 sys.path.append('/home/elicer/project/src/ml')
 
@@ -16,6 +17,7 @@ from util.constants import *
 
 # -------- parsing argument --------
 parser = argparse.ArgumentParser()
+parser.add_argument('--tune', dest='tune', default=False, action='store_true')
 parser.add_argument('-n', '--name', dest='wandb_run_name', default='') # wandb run name. If None, do not use wandb logger
 parser.add_argument('-c', '--ckptpath', dest='ckpt_path', default=None) # model checkpoint to resume training
 parser.add_argument('--run-id', dest='wandb_run_id', default=None) # wandb run-id to resume training
@@ -35,6 +37,11 @@ if args.wandb_run_name:
                     config = CFG,
                     )
 
+TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train'
+TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test'
+TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
+TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
+
 
 # -------------- main --------------
 net_name = CFG['model']['class_path']
@@ -53,8 +60,10 @@ transform_name = CFG['transform']['class_path']
 transform = globals()[transform_name](**CFG['transform'][transform_name]['init_args'])
 
 datamodule = LitDataModule(
-                train_data_dir = DATA_DIR,
-                test_data_dir = None,
+                train_data_dir = TRAIN_DATA_DIR,
+                train_csv_path = TRAIN_CSV_PATH,
+                test_data_dir = TEST_DATA_DIR,
+                test_csv_path = TEST_CSV_PATH,
                 batch_size = CFG['data']['init_args']['batch_size'],
                 val_split = CFG['data']['init_args']['val_split'],
                 num_workers = CFG['data']['init_args']['num_worker'],
@@ -84,10 +93,18 @@ trainer = L.Trainer(
                         patience = 4,
                     ),
                     LearningRateMonitor(logging_interval = 'epoch'),
-                    DeviceStatsMonitor()
                 ],
                 num_sanity_val_steps = 1
                 )
+
+if args.tune:
+    tuner = Tuner(trainer)
+    lr_finder = tuner.lr_find(model, datamodule = datamodule)
+    new_lr = lr_finder.suggestion()
+    print("LR Suggestion => ", new_lr)
+    fig = lr_finder.plot(suggest = True)
+    fig.savefig('lr_finder.png')
+    model.hparams.lr = new_lr
 
 trainer.fit(model, 
             datamodule = datamodule, 
