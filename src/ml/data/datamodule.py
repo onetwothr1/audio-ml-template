@@ -34,9 +34,9 @@ class LitDataModule(L.LightningDataModule):
             transform = self.train_transform)
 
         self.train_dataset, self.train_labels, self.test_dataset, self.test_labels = \
-            stratified_split(dataset, dataset.make_labels(), val_split=0.1, random_state=42)
+            stratified_split(dataset, dataset.make_labels(), val_split=0.1)
         self.train_dataset, self.train_labels, self.val_dataset, self.val_labels = \
-            stratified_split(self.train_dataset, self.train_labels, val_split=self.val_split, random_state=42)
+            stratified_split(self.train_dataset, self.train_labels, val_split=self.val_split)
 
         self.train_dataset.transform = self.train_transform
         self.val_dataset.transform = self.val_transform

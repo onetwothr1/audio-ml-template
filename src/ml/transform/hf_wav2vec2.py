@@ -15,9 +15,9 @@ class Wav2Vec2Extractor(Transform):
         self.max_length = kwargs.get('audio_max_ms')
 
     def train_transform(self, x):
-        data = Transform.open(x)[0]
+        audio = x[0]
         feature = self.extractor(
-                    data,
+                    audio,
                     sampling_rate=self.sampling_rate,
                     max_length=self.max_length,
                     padding=True, # DO NOT CHANGE THIS VALUE! FATAL ERROR RAISES!
@@ -34,5 +34,6 @@ class Wav2Vec2Extractor(Transform):
     def collate_fn(self, batch):
         x, y = zip(*batch)
         x = pad_sequence([xi.T for xi in x], batch_first=True)
+        # y = pad_sequence([torch.tensor([yi]).T for yi in y], batch_first=True)  # Convert scalar targets to 1D tensors
         y = pad_sequence([torch.tensor([yi]).T for yi in y], batch_first=True).squeeze(-1)  # Convert scalar targets to 1D tensors
         return x, y

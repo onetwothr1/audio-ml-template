@@ -29,8 +29,8 @@ class CustomTransform(Transform):
         self.masking_cfg = kwargs.get('masking')
         self.noising_cfg = kwargs.get('noising')
 
-    def train_transform(self, file_path):
-        aud = Transform.open(file_path)
+    def train_transform(self, aud):
+        # aud = Transform.open(file_path)
         aud = self.resample(aud)
         aud = self.pad_trunc(aud)
 
@@ -44,15 +44,15 @@ class CustomTransform(Transform):
             spec = self.masking(spec)
         return spec
 
-    def val_transform(self, file_path):
-        aud = Transform.open(file_path)
+    def val_transform(self, aud):
+        # aud = Transform.open(file_path)
         aud = self.resample(aud)
         aud = self.pad_trunc(aud)
         spec = self.mel_spectrogram(aud)
         return spec
     
-    def test_transform(self, file_path):
-        return self.val_transform(file_path)
+    def test_transform(self, aud):
+        return self.val_transform(aud)
 
 
     def rechannel(aud, new_channel):
