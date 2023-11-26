@@ -3,7 +3,7 @@ project: dacon-emotion
 seed_everything: 42
 
 model:
-  class_path:   BaseLine
+  class_path: BaseLine
   HFAutoClassifier:
     init_args:
       model_name: facebook/wav2vec2-base      
@@ -17,9 +17,9 @@ model:
 trainer:
   accelerator: gpu
   precision: 16-mixed
-  n_epoch: 30
+  n_epoch: 50
   check_val_every_n_epoch: 1
-  lr: 0.0001
+  lr: 0.2
   plugins:
     - AsyncCheckpointIO
 
@@ -75,5 +75,5 @@ transform:
         n_freq_mask: 1
         n_time_mask: 1
       noising: 
-        use: !!bool True
+        use: !!bool False
         noise_level: !!float 0.01
