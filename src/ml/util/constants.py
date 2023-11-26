@@ -4,7 +4,6 @@ import torch
 import yaml
 
 ROOT_DIR = Path(__file__).parent.parent.parent.parent
-DATA_DIR = "/home/elicer/project/data/raw/audio-mnist-whole"
 EXPERIMENTS_DIR = os.path.join(ROOT_DIR, "experiments")
 CONFIG_DIR = os.path.join(ROOT_DIR, "config")
 
