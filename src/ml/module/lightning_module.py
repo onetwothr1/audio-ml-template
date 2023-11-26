@@ -21,7 +21,7 @@ class LitModule(L.LightningModule):
         self.net = net
         if loss_module=='CrossEntropyLoss':
             self.loss_module = nn.CrossEntropyLoss()
-        self.lr = lr        
+        self.lr = float(lr)        
         self.optim = optim
         self.lr_scheduler = lr_scheduler
         self.last_epoch = last_epoch
