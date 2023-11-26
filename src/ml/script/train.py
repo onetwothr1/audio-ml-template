@@ -38,12 +38,13 @@ if args.wandb_run_name:
 
 # -------------- main --------------
 net_name = CFG['model']['class_path']
-net = globals()[net_name](**CFG['model'][net_name]['init_args'])
+net = globals()[net_name](CFG['model']['num_classes'], **CFG['model'][net_name]['init_args'])
 
 model = LitModule(
                 net = net, 
-                num_classes = CFG['model'][net_name]['init_args']['num_classes'],
+                num_classes = CFG['model']['num_classes'],
                 loss_module = CFG['model']['loss_module']['class_path'],
+                lr = CFG['trainer']['lr'],
                 optim = CFG['optimizer'],
                 lr_scheduler = CFG['lr_scheduler'],
                 )
@@ -52,8 +53,8 @@ transform_name = CFG['transform']['class_path']
 transform = globals()[transform_name](**CFG['transform'][transform_name]['init_args'])
 
 datamodule = LitDataModule(
-                train_data_dir=DATA_DIR,
-                test_data_dir=None,
+                train_data_dir = DATA_DIR,
+                test_data_dir = None,
                 batch_size = CFG['data']['init_args']['batch_size'],
                 val_split = CFG['data']['init_args']['val_split'],
                 num_workers = CFG['data']['init_args']['num_worker'],

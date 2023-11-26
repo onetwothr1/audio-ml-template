@@ -13,12 +13,13 @@ class AudioDataset(Dataset):
     def __init__(
         self,
         data_dir,
+        df: pd.DataFrame=pd.DataFrame(),
         transform: Callable=None,
     ) -> None:
         self.data_dir = data_dir
         self.file_list = glob(self.data_dir + os.sep + "*.wav")
-        self.df = pd.DataFrame()
-        self.setup()
+        self.df = df
+        self.setup() # if df isn't given, this method will make appropriate DataFrame
         self.transform = transform
 
     def __getitem__(self, idx):
@@ -35,7 +36,6 @@ class AudioDataset(Dataset):
         return [file_path.split('_')[0] for file_path in self.file_list]
 
     def setup(self):
-        # laod audio files in memory
         file_path_list = []
         label_list = []
         for file_path in self.file_list:

@@ -6,12 +6,11 @@ model:
   class_path:   BaseLine
   HFAutoClassifier:
     init_args:
-      model_name: facebook/wav2vec2-base
-      num_classes: 10
-      
+      model_name: facebook/wav2vec2-base      
   BaseLine:
     init_args:
-      num_classes: 10
+      arg:
+  num_classes: 10
   loss_module:
     class_path: CrossEntropyLoss
 
@@ -20,13 +19,13 @@ trainer:
   precision: 16-mixed
   n_epoch: 1
   check_val_every_n_epoch: 1
+  lr: 0.2
   plugins:
     - AsyncCheckpointIO
 
 optimizer:
   class_path: SGD
   init_args:
-    lr: 0.2
     momentum: 0.9
     weight_decay: 0.0001
 

@@ -12,6 +12,7 @@ class LitModule(L.LightningModule):
         net: nn.Module, 
         loss_module: nn.Module, 
         num_classes: int,
+        lr: float,
         optim: dict,
         lr_scheduler: dict,
     ) -> None:
@@ -19,9 +20,10 @@ class LitModule(L.LightningModule):
         self.net = net
         if loss_module=='CrossEntropyLoss':
             self.loss_module = nn.CrossEntropyLoss()
-        self.metric_module = F1Score(task='multiclass', num_classes=num_classes)
+        self.lr = lr        
         self.optim = optim
         self.lr_scheduler = lr_scheduler
+        self.metric_module = F1Score(task='multiclass', num_classes=num_classes)
 
     def forward(self, x):
         return self.net(x)
@@ -56,7 +58,7 @@ class LitModule(L.LightningModule):
         if self.optim['class_path']=='SGD':
             optimizer = optim.SGD(
                                 params = self.net.parameters(), 
-                                lr = self.optim['init_args']['lr'],
+                                lr = self.lr,
                                 momentum = self.optim['init_args']['momentum'],
                                 weight_decay = self.optim['init_args']['weight_decay'])
         if self.lr_scheduler['class_path']=='CosineAnnealingLR':
