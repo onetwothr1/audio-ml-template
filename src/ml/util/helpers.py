@@ -5,12 +5,11 @@ from collections import defaultdict
 
 from util.constants import *
 
-def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split, random_state=42):
+def stratified_split(dataset : torch.utils.data.Dataset, labels, val_split):
     '''
     https://gist.github.com/Alvtron/9b9c2f870df6a54fda24dbd1affdc254
     '''
     fraction = 1 - val_split
-    if random_state: random.seed(random_state)
     indices_per_label = defaultdict(list)
     for index, label in enumerate(labels):
         indices_per_label[label].append(index)
