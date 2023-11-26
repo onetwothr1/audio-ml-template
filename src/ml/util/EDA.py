@@ -9,7 +9,7 @@ from glob import glob
 from tqdm import tqdm
 import wave
 
-data_dir = '/home/elicer/project/data/raw/audio-mnist-whole'
+data_dir = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train'
 ext = 'wav'
 
 def EDA():
@@ -22,7 +22,7 @@ def EDA():
         sr_list.append(sr)
         ch_list.append(sig.size(0))
     plt.hist(ms_list, bins=200)
-    plt.xlabel('ms')
+    plt.xlabel('seconds')
     plt.ylabel('num data')
     plt.title('audio lenth distribution')
     plt.show()
