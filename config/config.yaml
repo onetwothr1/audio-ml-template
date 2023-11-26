@@ -1,4 +1,4 @@
-project: audio-mnist
+project: dacon-emotion
 
 seed_everything: 42
 
@@ -10,16 +10,16 @@ model:
   BaseLine:
     init_args:
       arg:
-  num_classes: 10
+  num_classes: 6
   loss_module:
     class_path: CrossEntropyLoss
 
 trainer:
   accelerator: gpu
   precision: 16-mixed
-  n_epoch: 1
+  n_epoch: 30
   check_val_every_n_epoch: 1
-  lr: 0.2
+  lr: 0.0001
   plugins:
     - AsyncCheckpointIO
 
@@ -40,7 +40,7 @@ data:
     root: data
     batch_size: 128
     val_split: 0.2
-    num_worker: 2
+    num_worker: 3
   dataset:
     init_args:
 
