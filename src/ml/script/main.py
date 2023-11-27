@@ -107,7 +107,7 @@ trainer = L.Trainer(
 
 if args.tune:
     tuner = Tuner(trainer)
-    lr_finder = tuner.lr_find(model, datamodule = datamodule, max_lr=1e-2)
+    lr_finder = tuner.lr_find(model, datamodule = datamodule, max_lr=1e-2, min_lr=5e-7, early_stop_threshold=None)
     new_lr = lr_finder.suggestion()
     print("LR Suggestion => ", new_lr)
     fig = lr_finder.plot(suggest = True)

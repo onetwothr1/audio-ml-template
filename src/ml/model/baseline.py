@@ -23,9 +23,25 @@ class BaseLine(nn.Module):
             )
         self.ap = nn.AdaptiveAvgPool2d(output_size=1)
         self.lin = nn.Linear(in_features=64, out_features=self.num_classes)
+        if kwargs.get('he_initialization'):
+            self._initialize_weights()
 
     def forward(self, x):
         x = self.conv(x)
         x = self.ap(x)
         x = x.view(x.shape[0], -1)
         return self.lin(x)
+
+    def _initialize_weights(self):
+        # He Initialization for convolutional layers
+        for m in self.modules():
+            if isinstance(m, nn.Conv2d):
+                # He Initialization for convolutional layers
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
+            elif isinstance(m, nn.Linear):
+                # He Initialization for fully connected layers
+                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.constant_(m.bias, 0)
