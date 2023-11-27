@@ -9,7 +9,6 @@ from lightning.pytorch.callbacks.early_stopping import EarlyStopping
 from lightning.pytorch.tuner import Tuner
 
 sys.path.append('/home/elicer/project/src/ml')
-
 from model import *
 from module import LitModule
 from data import LitDataModule
@@ -29,6 +28,7 @@ args = parser.parse_args()
 
 
 # ----------- preparation ----------
+
 seed_everything(CFG['seed_everything'], workers=True)
 
 if args.wandb_run_name:
