@@ -16,7 +16,7 @@ model:
 
 trainer:
   accelerator: gpu
-  precision: 16-mixed
+  precision: 32
   n_epoch: 50
   check_val_every_n_epoch: 1
   lr: 1e-5
@@ -25,9 +25,12 @@ trainer:
 
 optimizer:
   class_path: SGD
-  init_args:
-    momentum: 0.9
-    weight_decay: 0.01
+  SGD:
+    init_args:
+      momentum: 0.9
+      weight_decay: 0.01
+  SAM: !!bool True # To use SAM/ASAM, precision must be '32'. It is because pytorch lightning's AMP does not support 'closure'.
+  ASAM: !!bool False
 
 lr_scheduler:
   class_path: CosineAnnealingLR
@@ -38,7 +41,7 @@ data:
   class_path:
   init_args:
     root: data
-    batch_size: 16
+    batch_size: 8
     val_split: 0.2
     num_worker: 4
   dataset:

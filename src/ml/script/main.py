@@ -107,7 +107,7 @@ trainer = L.Trainer(
 
 if args.tune:
     tuner = Tuner(trainer)
-    lr_finder = tuner.lr_find(model, datamodule = datamodule)
+    lr_finder = tuner.lr_find(model, datamodule = datamodule, max_lr=1e-2)
     new_lr = lr_finder.suggestion()
     print("LR Suggestion => ", new_lr)
     fig = lr_finder.plot(suggest = True)
@@ -115,6 +115,8 @@ if args.tune:
     model.hparams.lr = new_lr
 
 if args.train:
+    torch.autograd.set_detect_anomaly(True)
+    # wandb_logger.watch(model, log='all', log_freq=1)
     trainer.fit(model, 
                 datamodule = datamodule, 
                 ckpt_path = args.ckpt_path
