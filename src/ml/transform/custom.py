@@ -12,16 +12,11 @@ class for loading, processing, augmenting audio file
 class CustomTransform(Transform):
     def __init__(
         self,
+        train:bool=True,
         **kwargs,
-        # audio_max_ms: int,
-        # sample_rate: int,
-        # mel_spectrogram: dict,
-        # time_shift: dict,
-        # masking: dict,
-        # noising: dict
     ) -> None:
         super().__init__()
-
+        self.train = True
         self.audio_max_ms = kwargs.get('audio_max_ms')
         self.sample_rate = kwargs.get('sample_rate')
         self.mel_sg_cfg = kwargs.get('mel_spectrogram')

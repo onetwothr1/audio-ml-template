@@ -1,5 +1,6 @@
 import os, sys, argparse
 import wandb
+import pandas as pd
 import lightning as L
 from lightning.pytorch import seed_everything
 from lightning.pytorch.loggers import WandbLogger
@@ -17,12 +18,13 @@ from util.constants import *
 
 # -------- parsing argument --------
 parser = argparse.ArgumentParser()
+parser.add_argument('--train', dest='train', default=False, action='store_true')
+parser.add_argument('--test', dest='test', default=False, action='store_true') 
 parser.add_argument('--tune', dest='tune', default=False, action='store_true')
 parser.add_argument('-n', '--name', dest='wandb_run_name', default='') # wandb run name. If None, do not use wandb logger
-parser.add_argument('-c', '--ckptpath', dest='ckpt_path', default=None) # model checkpoint to resume training
+parser.add_argument('-c', '--ckptpath', dest='ckpt_path', default=None) # model checkpoint to resume training or to predct
 parser.add_argument('--run-id', dest='wandb_run_id', default=None) # wandb run-id to resume training
 parser.add_argument('--last-epoch', dest='last_epoch', default=None) # last epoch number in case of resuming a training
-
 args = parser.parse_args()
 
 
@@ -38,11 +40,15 @@ if args.wandb_run_name:
                     config = CFG,
                     )
 
-TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train'
-TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test'
+TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train/' # must end with separator
+TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test/' # must end with separator
 TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
 TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
 
+# TRAIN_DATA_DIR = '/home/elicer/project/data/raw/audio-mnist-whole/' # must end with separator
+# TEST_DATA_DIR = '' # must end with separator
+# TRAIN_CSV_PATH = '/home/elicer/project/data/raw/train.csv'
+# TEST_CSV_PATH = ''
 
 # -------------- main --------------
 net_name = CFG['model']['class_path']
@@ -58,7 +64,7 @@ model = LitModule(
                 )
 
 transform_name = CFG['transform']['class_path']
-transform = globals()[transform_name](**CFG['transform'][transform_name]['init_args'])
+transform = globals()[transform_name](args.train, **CFG['transform'][transform_name]['init_args'])
 
 datamodule = LitDataModule(
                 train_data_dir = TRAIN_DATA_DIR,
@@ -90,8 +96,9 @@ trainer = L.Trainer(
                     EarlyStopping(
                         monitor = 'val/loss',
                         mode = 'min',
-                        min_delta = 1e-4,
-                        patience = 4,
+                        min_delta = 1e-5,
+                        patience = 5,
+                        verbose=True
                     ),
                     LearningRateMonitor(logging_interval = 'epoch'),
                 ],
@@ -107,9 +114,20 @@ if args.tune:
     fig.savefig('lr_finder.png')
     model.hparams.lr = new_lr
 
-trainer.fit(model, 
-            datamodule = datamodule, 
-            ckpt_path = args.ckpt_path
-            )
+if args.train:
+    trainer.fit(model, 
+                datamodule = datamodule, 
+                ckpt_path = args.ckpt_path
+                )
 
-wandb.finish()
+    wandb.finish()
+
+if args.test:
+    trainer.test(model,
+                datamodule = datamodule,
+                ckpt_path = args.ckpt_path)
+    preds = model.get_test_preds().detach().cpu().numpy()
+    preds =np.argmax(preds, axis=1)
+    submission_df = pd.read_csv(TEST_CSV_PATH, header=0)
+    submission_df['label'] = preds
+    submission_df.to_csv('submission.csv', index=False)

@@ -4,6 +4,7 @@ from torch import optim
 from torchmetrics import F1Score, Accuracy
 from torch.optim import lr_scheduler
 import numpy as np
+import pandas as pd
 import lightning as L
 
 class LitModule(L.LightningModule):
@@ -27,7 +28,8 @@ class LitModule(L.LightningModule):
         self.last_epoch = last_epoch
         self.accuracy =  Accuracy(task='multiclass', num_classes=num_classes)
         self.f1score = F1Score(task='multiclass', num_classes=num_classes)
-
+        self.test_preds = []
+        
     def forward(self, x):
         return self.net(x)
     
@@ -58,14 +60,12 @@ class LitModule(L.LightningModule):
         self.log('val/F1Score', f1score, on_epoch=True, on_step=False, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        x, y = batch
+        x = batch
         pred = self(x)
+        self.test_preds.append(pred)
 
-        acc = self.accuracy(pred, y)
-        self.log('test/Accuracy', acc)
-        f1score = self.f1score(pred, y)
-        self.log('test/F1Score', f1score)
-
+    def get_test_preds(self):
+        return torch.concat(self.test_preds)
 
     def configure_optimizers(self):
         if self.optim['class_path']=='SGD':
