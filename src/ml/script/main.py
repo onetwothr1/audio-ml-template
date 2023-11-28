@@ -40,10 +40,15 @@ if args.wandb_run_name:
                     config = CFG,
                     )
 
-TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train/' # must end with separator
-TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test/' # must end with separator
-TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
-TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
+TRAIN_DATA_DIR = '/home/elicer/project/Emotions/' # must end with separator
+TRAIN_CSV_PATH = '/home/elicer/project/Emotions/label.csv'
+TEST_DATA_DIR = ''
+TEST_CSV_PATH = ''
+
+# TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train/' # must end with separator
+# TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test/' # must end with separator
+# TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
+# TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
 
 # TRAIN_DATA_DIR = '/home/elicer/project/data/raw/audio-mnist-whole/' # must end with separator
 # TEST_DATA_DIR = '' # must end with separator
@@ -59,6 +64,7 @@ model = LitModule(
                 num_classes = CFG['model']['num_classes'],
                 loss_module = CFG['model']['loss_module']['class_path'],
                 lr = CFG['trainer']['lr'],
+                lr_layer_decay = CFG['trainer']['lr_layer_decay'],
                 optim = CFG['optimizer'],
                 lr_scheduler = CFG['lr_scheduler'],
                 )
@@ -75,7 +81,8 @@ datamodule = LitDataModule(
                 val_split = CFG['data']['init_args']['val_split'],
                 num_workers = CFG['data']['init_args']['num_worker'],
                 transform = transform,
-                collate_fn = transform.collate_fn if hasattr(transform, 'collate_fn') else None
+                collate_fn = transform.collate_fn if hasattr(transform, 'collate_fn') else None,
+                on_memory = True
                 )
 
 trainer = L.Trainer(
@@ -105,6 +112,8 @@ trainer = L.Trainer(
                 num_sanity_val_steps = 1
                 )
 
+
+# -------------- task --------------
 if args.tune:
     tuner = Tuner(trainer)
     lr_finder = tuner.lr_find(model, datamodule = datamodule, max_lr=1e-2, min_lr=5e-7, early_stop_threshold=None)

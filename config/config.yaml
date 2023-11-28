@@ -1,25 +1,26 @@
-project: dacon-emotion
+project: RAVDESS
 
 seed_everything: 42
 
 model:
-  class_path: BaseLine
+  class_path: HFAutoClassifier
   HFAutoClassifier:
     init_args:
       model_name: Rajaram1996/Hubert_emotion
   BaseLine:
     init_args:
       he_initialization: True
-  num_classes: 6
+  num_classes: 7
   loss_module:
     class_path: CrossEntropyLoss
 
 trainer:
   accelerator: gpu
-  precision: 32
+  precision: 16-mixed
   n_epoch: 50
   check_val_every_n_epoch: 1
-  lr: 2e-5
+  lr: 1e-5
+  lr_layer_decay: 1.0 # 1 if don't use layer-wise decay
   plugins:
     - AsyncCheckpointIO
 
@@ -29,7 +30,10 @@ optimizer:
     init_args:
       momentum: 0.9
       weight_decay: 0.0001
-  SAM: !!bool True # To use SAM/ASAM, precision must be '32'. It is because pytorch lightning's AMP does not support 'closure'.
+  AdamW:
+    init_args:
+      arg: 
+  SAM: !!bool False # To use SAM/ASAM, precision must be '32'. It is because pytorch lightning's AMP does not support 'closure'.
   ASAM: !!bool False
 
 lr_scheduler:
@@ -41,14 +45,14 @@ data:
   class_path:
   init_args:
     root: data
-    batch_size: 128
+    batch_size: 4
     val_split: 0.2
-    num_worker: 4
+    num_worker: 3
   dataset:
     init_args:
 
 transform:
-  class_path: CustomTransform
+  class_path: Wav2Vec2Extractor
   Wav2Vec2Extractor:
     init_args:
       model_name: Rajaram1996/Hubert_emotion

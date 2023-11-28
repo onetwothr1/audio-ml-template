@@ -40,3 +40,9 @@ class Wav2Vec2Extractor(Transform):
         else:
             x = pad_sequence(batch).mT
             return x
+
+
+# model = Wav2Vec2Extractor(num_classes=6, **{'model_name': 'Rajaram1996/Hubert_emotion',
+#                                             'sample_rate': 16000, 'audio_max_ms': 4000})
+# for name, param in model.extractor().named_parameters():
+#     print(name)

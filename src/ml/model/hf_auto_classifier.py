@@ -15,3 +15,12 @@ class HFAutoClassifier(torch.nn.Module):
         output = self.model(x)
         output = self.classifier(output.logits)
         return output
+
+# model = HFAutoClassifier(num_classes=6, **{'model_name': 'Rajaram1996/Hubert_emotion'})
+# for name, _ in model.named_children():
+#     print(name)
+# num_layers = sum(1 for _ in model.model.hubert.encoder.layers.named_children())
+# print("Number of layers:", num_layers)
+
+# for name, param in model.encoder.named_parameters():
+#     print(name)

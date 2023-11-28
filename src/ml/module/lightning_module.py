@@ -7,6 +7,7 @@ from torch.optim import lr_scheduler
 import numpy as np
 import pandas as pd
 import lightning as L
+from typing import Union
 
 from util.sam import SAM
 
@@ -17,6 +18,7 @@ class LitModule(L.LightningModule):
         loss_module: nn.Module, 
         num_classes: int,
         lr: float,
+        lr_layer_decay: Union[float,int],
         optim: dict,
         lr_scheduler: dict,
         last_epoch:int=-1
@@ -26,6 +28,7 @@ class LitModule(L.LightningModule):
         if loss_module=='CrossEntropyLoss':
             self.loss_module = nn.CrossEntropyLoss()
         self.lr = float(lr)        
+        self.lr_layer_decay = float(lr_layer_decay)
         self.optim = optim
         self.lr_scheduler = lr_scheduler
         self.last_epoch = last_epoch
@@ -83,16 +86,23 @@ class LitModule(L.LightningModule):
         return torch.concat(self.test_preds)
 
     def configure_optimizers(self):
+        params = self.net.parameters()
+        if self.lr_layer_decay != 1.0:
+            params = self._get_llrd_params(lr=self.lr, layer_decay=self.lr_layer_decay)
+
         if self.optim['class_path']=='SGD':
             optimizer = optim.SGD(
-                                params = self.net.parameters(), 
+                                params = params, 
                                 lr = self.lr,
                                 momentum = self.optim[self.optim['class_path']]['init_args']['momentum'],
                                 weight_decay = self.optim[self.optim['class_path']]['init_args']['weight_decay'])
+        if self.optim['class_path']=='AdamW':
+            optimizer = optim.AdamW(
+                                params = params,)
         if self.optim['SAM'] or self.optim['ASAM']:
             self.automatic_optimization = False
             optimizer = SAM(
-                            params = self.net.parameters(),
+                            params = params,
                             base_optimizer = SGD,
                             rho = self.lr,
                             adaptive = self.optim['ASAM'],
@@ -107,3 +117,19 @@ class LitModule(L.LightningModule):
                                 eta_min = 1e-6,
                                 last_epoch=self.last_epoch)
         return [optimizer], [scheduler]
+
+    def _get_llrd_params(self, lr, layer_decay=0.8, weight_decay=0.001):
+        n_layers = len(list(self.net.model.hubert.encoder.layers.named_children())) # this code can vary upon model's architecture. check model's architecture using model.named_parameters()
+        llrd_params = []
+        for name, value in list(self.named_parameters()):
+            if ('bias' in name) or ('layer_norm' in name):
+                llrd_params.append({"params": value, "lr": lr, "weight_decay": 0.0})
+            elif ('emb' in name) or ('feature' in name) : 
+                llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_layers+1)), "weight_decay": weight_decay})
+            elif 'encoder.layer' in name:
+                for n_layer in range(n_layers):
+                    if f'encoder.layers.{n_layer}' in name:
+                        llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_layers+1-n_layer)), "weight_decay": weight_decay})
+            else:
+                llrd_params.append({"params": value, "lr": lr , "weight_decay": weight_decay})
+        return llrd_params
