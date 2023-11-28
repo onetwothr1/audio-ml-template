@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 import lightning as L
 from typing import Union
+import copy
 
 from util.sam import SAM
 
@@ -88,7 +89,7 @@ class LitModule(L.LightningModule):
     def configure_optimizers(self):
         params = self.net.parameters()
         if self.lr_layer_decay != 1.0:
-            params = self._get_llrd_params(lr=self.lr, layer_decay=self.lr_layer_decay)
+            params = self._get_llrd_params(lr=self.lr, layer_decay=self.lr_layer_decay, verbose=True)
 
         if self.optim['class_path']=='SGD':
             optimizer = optim.SGD(
@@ -118,18 +119,20 @@ class LitModule(L.LightningModule):
                                 last_epoch=self.last_epoch)
         return [optimizer], [scheduler]
 
-    def _get_llrd_params(self, lr, layer_decay=0.8, weight_decay=0.001):
-        n_layers = len(list(self.net.model.hubert.encoder.layers.named_children())) # this code can vary upon model's architecture. check model's architecture using model.named_parameters()
+    def _get_llrd_params(self, lr, layer_decay=0.8, weight_decay=0.001, verbose=False):
+        if verbose: print('\nSetting layer-wise learning rate...')
+        n_encoder_layers = len(list(self.net.model.hubert.encoder.layers.named_children())) # this code can vary upon model's architecture. check model's architecture using model.named_parameters()
         llrd_params = []
         for name, value in list(self.named_parameters()):
-            if ('bias' in name) or ('layer_norm' in name):
-                llrd_params.append({"params": value, "lr": lr, "weight_decay": 0.0})
-            elif ('emb' in name) or ('feature' in name) : 
-                llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_layers+1)), "weight_decay": weight_decay})
-            elif 'encoder.layer' in name:
-                for n_layer in range(n_layers):
-                    if f'encoder.layers.{n_layer}' in name:
-                        llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_layers+1-n_layer)), "weight_decay": weight_decay})
+            if 'encoder.layers' in name:
+                for n_layer in range(n_encoder_layers):
+                    if f'encoder.layers.{n_layer}.' in name:
+                        llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_encoder_layers - n_layer)), "weight_decay": weight_decay})
+                        if verbose: print(name, lr * (layer_decay**(n_encoder_layers - n_layer)))
+            elif ('emb' in name) or ('feature' in name): 
+                llrd_params.append({"params": value, "lr": lr * (layer_decay**(n_encoder_layers+1)), "weight_decay": weight_decay})
+                if verbose: print(name, lr* (layer_decay**(n_encoder_layers+1)))
             else:
                 llrd_params.append({"params": value, "lr": lr , "weight_decay": weight_decay})
+                if verbose: print(name, lr)
         return llrd_params

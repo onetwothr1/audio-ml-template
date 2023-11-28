@@ -40,15 +40,15 @@ if args.wandb_run_name:
                     config = CFG,
                     )
 
-TRAIN_DATA_DIR = '/home/elicer/project/Emotions/' # must end with separator
-TRAIN_CSV_PATH = '/home/elicer/project/Emotions/label.csv'
-TEST_DATA_DIR = ''
-TEST_CSV_PATH = ''
+# TRAIN_DATA_DIR = '/home/elicer/project/Emotions/' # must end with separator
+# TRAIN_CSV_PATH = '/home/elicer/project/Emotions/label.csv'
+# TEST_DATA_DIR = ''
+# TEST_CSV_PATH = ''
 
-# TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train/' # must end with separator
-# TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test/' # must end with separator
-# TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
-# TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
+TRAIN_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train/' # must end with separator
+TEST_DATA_DIR = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test/' # must end with separator
+TRAIN_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/train.csv'
+TEST_CSV_PATH = '/home/elicer/project/월간 데이콘 음성 감정 인식 AI 경진대회/test.csv'
 
 # TRAIN_DATA_DIR = '/home/elicer/project/data/raw/audio-mnist-whole/' # must end with separator
 # TEST_DATA_DIR = '' # must end with separator
