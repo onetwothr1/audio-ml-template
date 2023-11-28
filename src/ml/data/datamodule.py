@@ -5,8 +5,6 @@ from sklearn.model_selection import StratifiedShuffleSplit
 
 from .dataset import AudioDataset
 from transform import Transform
-from util.helpers import stratified_split
-
 
 class LitDataModule(L.LightningDataModule):
     def __init__(
@@ -19,6 +17,7 @@ class LitDataModule(L.LightningDataModule):
         batch_size: int =32,
         val_split: float =0.2,
         num_workers: int =1,
+        on_memory: bool=False,
         collate_fn: callable=None
     ) -> None:
         super().__init__()
@@ -33,6 +32,7 @@ class LitDataModule(L.LightningDataModule):
         self.train_transform = transform.train_transform
         self.val_transform = transform.val_transform
         self.test_transform = transform.test_transform
+        self.on_memory = on_memory
         self.collate_fn = collate_fn
 
     def setup(self, stage: str=None):
@@ -40,7 +40,8 @@ class LitDataModule(L.LightningDataModule):
             self.train_dataset = AudioDataset(
                 data_dir = self.train_data_dir,
                 df = self.train_df,
-                transform = self.train_transform)
+                transform = self.train_transform,
+                on_memory=self.on_memory)
         
             sss = StratifiedShuffleSplit(n_splits=1, test_size=self.val_split)
             indices = list(range(len(self.train_df)))
@@ -50,12 +51,12 @@ class LitDataModule(L.LightningDataModule):
             self.train_dataset = AudioDataset(
                 data_dir = self.train_data_dir,
                 df = self.train_df.loc[train_indices],
-                transform = self.train_transform
+                transform = self.train_transform,
             )
             self.val_dataset = AudioDataset(
                 data_dir = self.train_data_dir,
                 df = self.train_df.loc[val_indices],
-                transform = self.val_transform
+                transform = self.val_transform,
             )
 
             self.train_dataset.transform = self.train_transform
