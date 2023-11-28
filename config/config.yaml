@@ -16,11 +16,11 @@ model:
 
 trainer:
   accelerator: gpu
-  precision: 16-mixed
+  precision: 16
   n_epoch: 50
   check_val_every_n_epoch: 1
   lr: 1e-5
-  lr_layer_decay: 1.0 # 1 if don't use layer-wise decay
+  lr_layer_decay: 1.0 # 1 if don't use layer-wise decay. precision should be 32 to use this.
   plugins:
     - AsyncCheckpointIO
 
